@@ -55,20 +55,11 @@ Errors:
 - HTTP 404 (Not Found)
 
 ### PATCH /v1/operations/(id)
-<!-- save outputs (ephemeral) -->
-<!-- update status -->
-#### Query String
-#### Request Body
-#### Responses
+Used by wrappers running individual operations to save their outputs.
 
-### POST /v1/shortcut-operation
-Sent from Core service.
-<!-- save color, net, place info from core -->
-<!-- send job to fork service -->
-### POST /v1/execute-operation
-Sent from Core service.
-<!-- save color, net, place info from core -->
-<!-- send job to lsf service -->
+#### Request Body
+- `outputs`
+#### Responses
 
 ## Required Maintenance API
 
@@ -97,3 +88,15 @@ Sent from Core service.
 ### Workflow Succeeded
 ### Workflow Failed
 ### Workflow Cancelled
+
+
+## Callback Listeners
+
+### PUT /v1/callbacks/core-notifications/
+Types of notifications
+- requesting parallel size
+- requesting job execution
+
+### PUT /v1/callbacks/(shell-command-type)-notifications/
+- update operation status
+- create appropriate token in core
