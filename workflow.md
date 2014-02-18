@@ -17,7 +17,7 @@ Successful posts should:
 - respond with the Location header set to the newly created workflow
 - build the entire workflow tree in the status database
 - top level inputs stored in the IO backend
-- compile and submit a net to core (deferred)
+- compile and submit a net to petri service (deferred)
     - including initial start token
 
 Errors:
@@ -92,11 +92,11 @@ Used by wrappers running individual operations to save their outputs.
 
 ## Callback Listeners
 
-### PUT /v1/callbacks/core-notifications/
+### PUT /v1/callbacks/petri-notifications/
 Types of notifications
 - requesting parallel size
 - requesting job execution
 
 ### PUT /v1/callbacks/(shell-command-type)-notifications/
 - update operation status
-- create appropriate token in core
+- create appropriate token in the petri net

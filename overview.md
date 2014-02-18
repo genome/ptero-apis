@@ -8,7 +8,7 @@ Need to specify:
 
 ## Services
 
-### Core
+### Petri
 Required actions:
 - create net [POST /nets]
 - put token in place (accepts full token body or token id?)
@@ -37,7 +37,7 @@ Required actions:
 Required actions:
 - create a workflow [POST /workflows]
     - interprets and stores workflow (and inputs) in database (immediate)
-    - constructs & sends petri net serialization to core (deferred)
+    - constructs & sends petri net serialization to petri service (deferred)
 - get workflow status [GET /workflows/(workflow-id)]
     - calculated from status of operations
 - cancel workflow [PATCH /workflows/(workflow-id) "status" field]
@@ -63,7 +63,7 @@ NoSQL
 - How do we help to ensure idempotency?
     - Should requests to create tokens in Core require a request id/tag, so that
       they can be guaranteed to not happen more than once?
-        - since the generating app (Workflow) builds all the callbacks to core,
-          it can generate a bunch of unique ids
+        - since the generating app (Workflow) builds all the callbacks to petri
+          service, it can generate a bunch of unique ids
         - maybe this could be optional instead of required (if it's there, use
           it)

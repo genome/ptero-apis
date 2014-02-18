@@ -1,7 +1,7 @@
 # Callback Structure
 
 ## Use Cases
-- Workflow service creates tokens in Core nets
+- Workflow service creates tokens in Petri nets
     - data embedded in url
         - net key (C)
         - place id (C)
@@ -14,7 +14,7 @@
         - new status (S)
         - available action urls
             - cancel job
-- Core notifies Workflow that a transition has been reached
+- Petri notifies Workflow that a transition has been reached
     - request body
         - net key
         - transition id

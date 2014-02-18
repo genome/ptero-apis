@@ -1,4 +1,4 @@
-# Core API
+# Petri Net API
 
 ## Critical API
 
