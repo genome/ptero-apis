@@ -208,14 +208,16 @@ Errors:
 ## Optional Maintenance API
 
 ### GET /v1/workflows
-<!-- list known workflows -->
-#### Query String
-#### Responses
+List known workflows.
 
-### GET /v1/operations
-<!-- list known operations -->
 #### Query String
+- `limit`
+    - max results per page
+- `offset`
+    - result to start looking at
+
 #### Responses
+- HTTP 200 (OK)
 
 
 ## Available HTTP Callbacks
