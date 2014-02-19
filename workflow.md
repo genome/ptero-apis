@@ -228,6 +228,8 @@ List known workflows.
 
 
 ## Callback Listeners
+Note that this section is contingent on understanding the APIs of the shell
+command and petri services.
 
 ### PUT /v1/callbacks/petri-notifications/
 Types of notifications
