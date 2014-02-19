@@ -15,12 +15,15 @@ The request body should be in two parts:
 #### Responses
 Successful posts should:
 
-- respond with HTTP 201
-- respond with the Location header set to the newly created workflow
-- build the entire workflow tree in the status database
-- top level inputs stored in the IO backend
-- compile and submit a net to petri service (deferred)
-    - including initial start token
+- HTTP 201 (Created)
+    - set the Location header set to the newly created workflow
+    - immediate
+        - stores the primary workflow database entry
+    - deferred
+        - builds the entire workflow tree in the status database
+        - stores top level inputs in the IO backend
+        - compiles and submits a net to petri service
+            - including initial start token
 
 Errors:
 
@@ -28,8 +31,14 @@ Errors:
     - The workflow XML cannot be validated against the schema.
     - The inputs JSON is not a usable hash.
 
+Errors discovered after initial submission should show up in later polling of
+workflow status as "error".
+
+
 ### GET /v1/workflows/(id)/status?full=(boolean)&depth=(maximum-tree-depth)
 Fetches "build view" style data.
+
+Polling for completion of a workflow can be done by requesting depth=0.
 
 #### Query String
 - `full`
