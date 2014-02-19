@@ -33,9 +33,11 @@ Fetches "build view" style data.
 
 #### Query String
 - `full`
+    - boolean
     - don't summarize results at all (e.g. parallel by)
     - defaults to false
 - `depth`
+    - integer
     - maximum nesting depth for workflow models/sub-workflows
     - defaults to ???
 
