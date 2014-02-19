@@ -132,30 +132,35 @@ Sample response body:
 
 <!-- Do we want to hide sub-model details if they are 'new' or 'done'? -->
 
-### GET /v1/operations/(id)
+### GET /v1/workflows/(wf-id)/inputs/(op-id)?parallel_index=(index)
 Used by wrappers running individual operations to fetch their inputs.
-
-#### Query String
-- `fields` specifies what fields to return in the response body
-    - specifically include/exclude inputs
 
 #### Responses
 Success:
 - respond with HTTP 200 (OK)
-- body
-    - basic info for operation
-    - inputs
-    - outputs
+- body is simple hash of inputs
 
 Errors:
 - HTTP 404 (Not Found)
+    - unknown workflow
+    - no such operation id associated with workflow
+    - no such parallel index associated with operation
+    - inputs for this operation are not yet available?
 
-### PATCH /v1/operations/(id)
+### PUT /v1/workflows/(wf-id)/outputs/(op-id)?parallel_index=(index)
 Used by wrappers running individual operations to save their outputs.
 
 #### Request Body
-- `outputs`
+Simple hash of outputs.
+
 #### Responses
+Success:
+- HTTP 204 (No Content)
+
+Errors:
+- HTTP 404 (Not Found)
+    - unknown workflow id
+    - no such operation id associated with workflow
 
 
 ## Required Maintenance API
