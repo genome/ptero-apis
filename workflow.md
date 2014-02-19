@@ -45,9 +45,7 @@ Fetches "build view" style data.
 Success:
 
 - HTTP 200 (OK)
-    - complete detail
-- HTTP 206 (Partial Content)
-    - abbreviated content (see below)
+    - body may have abbreviated content depending on options (see below)
 
 Errors:
 
