@@ -221,10 +221,53 @@ List known workflows.
 
 
 ## Available HTTP Callbacks
+These are HTTP requests that the workflow service can make to registered
+participants if requested.
 
 ### Workflow Succeeded
+Request:
+
+    PUT (user-specified-url)
+    Content-Type: application/json
+    Accepts: application/json
+
+    {
+      "id": 42,
+      "status": "done",
+      "owner": "mburnett",
+      "begin": "2014-02-19 08:30:42-6",
+      "end": "2014-02-19 08:32:00-6"
+    }
+
 ### Workflow Failed
+Request:
+
+    PUT (user-specified-url)
+    Content-Type: application/json
+    Accepts: application/json
+
+    {
+      "id": 42,
+      "status": "crashed",
+      "owner": "mburnett",
+      "begin": "2014-02-19 08:30:42-6",
+      "end": "2014-02-19 08:32:00-6"
+    }
+
 ### Workflow Cancelled
+Request:
+
+    PUT (user-specified-url)
+    Content-Type: application/json
+    Accepts: application/json
+
+    {
+      "id": 42,
+      "status": "cancelled",
+      "owner": "mburnett",
+      "begin": "2014-02-19 08:30:42-6",
+      "end": "2014-02-19 08:32:00-6"
+    }
 
 
 ## Callback Listeners
