@@ -25,18 +25,28 @@ Errors:
     - The workflow XML cannot be validated against the schema.
     - The inputs JSON is not a usable hash.
 
-### GET /v1/workflows/(id)
+### GET /v1/workflows/(id)/status?full=(boolean)&depth=(maximum-tree-depth)
 Fetches "build view" style data.
+
+#### Query String
+- `full`
+    - don't summarize results at all (e.g. parallel by)
+    - defaults to false
+- `depth`
+    - maximum nesting depth for workflow models/sub-workflows
+    - defaults to ???
 
 #### Responses
 Success:
-- respond with HTTP 200 (OK)
-- body contains basic info for all operations as an ordered tree
+- HTTP 200 (OK)
+    - complete detail
+- HTTP 206 (Partial Content)
+    - abbreviated content (see below)
 
 Errors:
 - HTTP 404 (Not Found)
 
-Sample response body:
+Sample abbreviated content:
 {
   "name": "Some Exciting Workflow",
   "owner": "mburnett",
