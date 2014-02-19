@@ -176,10 +176,20 @@ Errors:
 ## Required Maintenance API
 
 ### PATCH /v1/workflows/(id)
-<!-- cancel workflow (multiple modes) -->
-#### Query String
+This is only used to cancel the workflow.
+
 #### Request Body
+{
+  "status": "cancelled",
+}
+
 #### Responses
+Success:
+- HTTP 204 (No Content)
+
+Errors:
+- HTTP 404 (Not Found)
+    - unknown workflow id
 
 
 ## Optional Maintenance API
