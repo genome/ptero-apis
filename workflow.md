@@ -1,6 +1,6 @@
 # Workflow Application API
 
-## Critical API
+## User Facing API
 
 ### POST /v1/workflows
 Submits a new workflow.
@@ -156,6 +156,9 @@ Sample abbreviated content:
     }
 
 <!-- Do we want to hide sub-model details if they are 'new' or 'done'? -->
+
+
+## System Facing API
 
 ### GET /v1/workflows/(wf-id)/inputs/(op-id)?parallel_index=(index)
 Used by wrappers running individual operations to fetch their inputs.
