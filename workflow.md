@@ -6,11 +6,12 @@
 Submits a new workflow.
 
 #### Request Body
-The request body should be in two parts:
+The request body should be in multiple parts:
 
 1. workflow.xml (Content-Type: application/xml) should be valid Workflow XML.
-2. inputs.json (Content-Type: application/json) should be a hash of top level
-   inputs for the workflow.
+2. data.json (Content-Type: application/json)
+    - inputs for the workflow
+    - environment variables
 
 #### Responses
 Successful posts should:
