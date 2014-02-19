@@ -10,6 +10,7 @@ Need to specify:
 
 ### Petri
 Required actions:
+
 - create net [POST /nets]
 - put token in place (accepts full token body or token id?)
     - POST /nets/(net-id)/places/(place-id)/tokens
@@ -21,6 +22,7 @@ Optional actions:
 
 ### Fork
 Required actions:
+
 - request job execution [POST /jobs]
 - check status of job execution [GET /jobs/(job-id)]
 - cancel job execution [PATCH /jobs/(job-id) "status" field]
@@ -28,6 +30,7 @@ Required actions:
 
 ### LSF
 Required actions:
+
 - request job execution [POST /jobs]
 - check status of job execution [GET /jobs/(job-id)]
 - cancel job execution [PATCH /jobs/(job-id) "status" field]
@@ -35,6 +38,7 @@ Required actions:
 
 ### Workflow
 Required actions:
+
 - create a workflow [POST /workflows]
     - interprets and stores workflow (and inputs) in database (immediate)
     - constructs & sends petri net serialization to petri service (deferred)
@@ -50,6 +54,7 @@ Required actions:
 SQL
 
 Operation statuses
+
 - status
 - timestamp
 - execution type (shortcut, execute)
