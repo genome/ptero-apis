@@ -337,6 +337,6 @@ Types of notifications
 - requesting parallel size
 - requesting job execution
 
-### PUT /v1/callbacks/(shell-command-type)-notifications/
+### PUT /v1/callbacks/(shell-command-type)/(notification-type)?execution_identifier=(exec_id)
 - update operation status
 - create appropriate token in the petri net
