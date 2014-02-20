@@ -1,9 +1,10 @@
 # Workflow Application API
 
-## User Facing API
+## Critical User Facing API
 
-### POST /v1/workflows
-Submits a new workflow.
+### POST /v1/workflows or /v1/operations/(id)/workflows
+Submits a new workflow.  If posted to the operations URL, creates the workflow
+as a sub-workflow of the operation's workflow.
 
 #### Request Body
 The request body should be in multiple parts:
@@ -31,42 +32,24 @@ Errors:
 - HTTP 400 (Bad Request)
     - The workflow XML cannot be validated against the schema.
     - The inputs JSON is not a usable hash.
+    - The environment variables are not complete enough (e.g. no user or PWD)
 
 Errors discovered after initial submission should show up in later polling of
 workflow status as "error".
 
-### GET /v1/workflows/(id)
-Fetches the top-level status for a given workflow.
-
-#### Responses
-Success:
-
-- HTTP 200 (OK)
-
-Errors:
-
-- HTTP 404 (Not Found)
-
-Sample content:
-
-    {
-          "name": "Some Exciting Workflow",
-          "owner": "mburnett",
-          "created": "2014-02-19 08:27:12-6",
-          "begin": "2014-02-19 08:30:42-6",
-          "status": "crashed",
-    }
-
-### GET /v1/workflows/(id)/operations
-Fetches the operations for a given workflow.
-
-Polling for completion of a workflow can be done by requesting depth=0.
+### GET /v1/workflows/(id)/report
+Fetches the data for a given workflow like `genome model build view` or
+`workflow show`.
 
 #### Query String
 - `expand-parallel-by`
-    - boolean or enum
+    - enum
+        - none: only summarize parallel-by statuses -- no details
+        - crashed-only: show details for crashed steps (default)
+        - all: show details for all steps
 - `exceution-history`
-    - boolean or enum
+    - boolean
+    - whether to show details of shortcut/execute history
 - `depth`
     - integer
     - maximum nesting depth for workflow models/sub-workflows
@@ -173,10 +156,41 @@ Sample abbreviated content:
 <!-- Do we want to hide sub-model details if they are 'new' or 'done'? -->
 
 
-## System Facing API
+## Critical System Facing API
 
-### GET /v1/workflows/(wf-id)/inputs/(op-id)?parallel_index=(index)
+### GET /v1/workflows/(id)/details
+Fetches the top-level status for a given workflow.
+
+Used by client to poll for workflow completion.  Errors in deferred portions of
+workflow submission must show up in this query.
+
+#### Responses
+Success:
+
+- HTTP 200 (OK)
+
+Errors:
+
+- HTTP 404 (Not Found)
+
+Sample content:
+
+    {
+          "name": "Some Exciting Workflow",
+          "owner": "mburnett",
+          "created": "2014-02-19 08:27:12-6",
+          "begin": "2014-02-19 08:30:42-6",
+          "status": "crashed",
+          "root_operation": "http://workflow.ptero.gsc.wustl.edu/v1/operations/42",
+          "errors": []
+    }
+
+### GET /v1/operations/(op-id)/inputs
 Used by wrappers running individual operations to fetch their inputs.
+
+#### Query String Parameters
+- `parallel_identifier`
+    - used to identify the entire parallel stack
 
 #### Responses
 Success:
@@ -187,13 +201,16 @@ Success:
 Errors:
 
 - HTTP 404 (Not Found)
-    - unknown workflow
-    - no such operation id associated with workflow
-    - no such parallel index associated with operation
-    - inputs for this operation are not yet available?
+    - unknown operation
+    - invalid `parallel_identifier`
+    - inputs for this operation are not yet available (other status code?)
 
-### PUT /v1/workflows/(wf-id)/outputs/(op-id)?parallel_index=(index)
+### PUT /v1/operations/(op-id)/outputs
 Used by wrappers running individual operations to save their outputs.
+
+#### Query String Parameters
+- `parallel_identifier`
+    - used to identify the entire parallel stack
 
 #### Request Body
 Simple hash of outputs.
@@ -206,8 +223,8 @@ Success:
 Errors:
 
 - HTTP 404 (Not Found)
-    - unknown workflow id
-    - no such operation id associated with workflow
+    - unknown operation
+    - invalid `parallel_identifier`
 
 
 ## Required Maintenance API
@@ -245,6 +262,19 @@ List known workflows.
 
 #### Responses
 - HTTP 200 (OK)
+
+### GET /v1/workflows/(id)
+Fetches the workflow.xml, and data.json provided in the POST.
+
+#### Responses
+Success:
+
+- HTTP 200 (OK)
+    - body may have abbreviated content depending on options (see above)
+
+Errors:
+
+- HTTP 404 (Not Found)
 
 
 ## Available HTTP Callbacks
