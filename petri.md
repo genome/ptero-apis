@@ -21,18 +21,12 @@ Errors:
 ### PUT /v1/nets/(net-id)/places/(place-id)/tokens/(color)
 Puts a token into a place.
 
-#### Query String Parameters
-
-- `require`
-    - comma separated names
-    - fields with these names must be present in the request body
-
 #### Request Body
 May be empty or contain specific data to be used by upcoming actions.  E.g. a
 split action may require as input a `split_size` to know how many new colors of
 tokens to create.
 
-    PUT /v1/nets/7/places/23/tokens/0?require=split_size
+    PUT /v1/nets/7/places/23/tokens/0
 
     {
         "split_size": 23
@@ -163,5 +157,5 @@ Sent to notify the consumer application that input is required to continue.
         },
         "requested_data": ["split_size"],
         "relative_token_color_stack": [0],
-        "response_place": "http://petri/v1/nets/7/places/28/tokens/0?require=split_size"
+        "response_place": "http://petri/v1/nets/7/places/28/tokens/0"
     }
