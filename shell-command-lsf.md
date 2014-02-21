@@ -161,14 +161,15 @@ services:
 - succeeded
 - failed
 - cancelled
-
-LSF-specific callbacks:
-
 - scheduled: the job has been successfully scheduled with LSF
-- error: the job cannot be run for some reason
-    - it could not be successfully submitted to LSF
-    - there are no possible hosts that can fulfil the job (e.g. due to large
-      resource requests)
+- error: the service has failed to fulfill its promise to run the job
+    - the job cannot be run for some reason
+        - it could not be successfully submitted to LSF
+        - there are no possible hosts that can fulfil the job (e.g. due to large
+          resource requests)
+    - internal inconsistency about job state was detected
+        - e.g. a successful job was found to be failed after querying LSF
+        - e.g. celery result storage backend failure
 
 
 Request bodies will be essentially the same, though some fields are not

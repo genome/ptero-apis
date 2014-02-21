@@ -50,6 +50,7 @@ Sample:
             "succeeded": "http://workflow/v1/callbacks/shell-command-(type)/succeeded?execution_identifier=42",
             "failed": "http://workflow/v1/callbacks/shell-command-(type)/failed?execution_identifier=42",
             "cancelled": "http://workflow/v1/callbacks/shell-command-(type)/cancelled?execution_identifier=42"
+            "error": "http://workflow/v1/callbacks/shell-command-(type)/error?execution_identifier=42"
         },
         "logging": {
             "stderr": {
@@ -138,6 +139,8 @@ services:
 - succeeded
 - failed
 - cancelled
+- error: the service has failed to fulfill its promise to run the job
+    - the result backend crashed, and now the status of a job is unknown
 
 Request bodies will be essentially the same, though some fields are not
 available with all statuses (e.g. the end time is not available for scheduled
