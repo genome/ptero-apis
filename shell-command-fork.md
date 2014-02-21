@@ -1,5 +1,12 @@
 # Fork Shell Command Service API
 
+<!-- Should we support multiple worker queues, so that we could for example
+separate jobs needing network disk from those that do not?
+
+If we do, we need to provide endpoints for querying what's in each queue and
+what queues are available.
+-->
+
 ## Critical API
 
 ### POST /v1/jobs
