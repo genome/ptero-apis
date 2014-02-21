@@ -23,6 +23,7 @@ Required parameters:
 - `resources`
     - hash with limit, request, & reserve sub-hashes
     - sub hashes are all string -> (string, int)
+- `umask`
 - `user`
     - string
     - the user to run the job as (may be different from the authenticated user)
@@ -44,6 +45,7 @@ Sample:
         "environment": {
             ...
         },
+        "umask": "0002",
         "user": "mburnett",
         "webhooks": {
             "scheduled": "http://workflow/v1/callbacks/shell-command-(type)/scheduled?execution_identifier=42",

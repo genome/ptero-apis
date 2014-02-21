@@ -25,6 +25,7 @@ Required parameters:
         - where to go: files, syslog, etc.
         - whether prepend lines with data (timestamps, etc.)
         - whether to transform data (e.g. to JSON)
+- `umask`
 - `user`
     - string
     - the user to run the job as (may be different from the authenticated user)
@@ -44,6 +45,7 @@ Sample:
         "environment": {
             ...
         },
+        "umask": "0002",
         "user": "mburnett",
         "webhooks": {
             "begun": "http://workflow/v1/callbacks/shell-command-(type)/begun?execution_identifier=42",
