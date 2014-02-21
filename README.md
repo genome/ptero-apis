@@ -1,7 +1,7 @@
 # PTero APIs
 
-These are the approximate design documents for the entire PTero system, living
-together in harmony during their initial development.
+These are the approximate design documents for the entire set of PTero APIs,
+living together in harmony during their initial development.
 
 <!--
 Need to specify:
