@@ -1,16 +1,41 @@
-# Shell Command Service (Fork & LSF) API
+# LSF Shell Command Service API
 
 ## Critical API
 
 ### POST /v1/jobs
 Schedule a new job.
 
-<!-- features to think about
-- logging
-- locking
--->
-
 #### Request Body
+Required parameters:
+
+- `command_line`
+    - list of strings
+- `environment`
+    - hash of string -> string
+- `logging`
+    - hash
+    - define logging parameters
+        - where to go: files, syslog, etc.
+        - whether prepend lines with data (timestamps, etc.)
+        - whether to transform data (e.g. to JSON)
+- `queue`
+    - string
+- `resources`
+    - hash with limit, request, & reserve sub-hashes
+    - sub hashes are all string -> (string, int)
+- `user`
+    - string
+    - the user to run the job as (may be different from the authenticated user)
+
+Optional parameters:
+
+- `project`
+    - string
+- `webhooks`
+    - hash string -> URL
+
+Sample:
+
     {
         "command_line": [
             "joinx",
@@ -28,8 +53,17 @@ Schedule a new job.
             "cancelled": "http://workflow/v1/callbacks/shell-command-(type)/cancelled?execution_identifier=42"
             "error": "http://workflow/v1/callbacks/shell-command-(type)/error?execution_identifier=42"
         },
+        "logging": {
+            "stderr": {
+                "type": "file",
+                "path": "/gscmnt/gc2013/info/model_data/build12345/logs/some_job.err"
+            },
+            "stdout": {
+                "type": "file",
+                "path": "/gscmnt/gc2013/info/model_data/build12345/logs/some_job.out"
+            }
+        },
 
-        # LSF specific fields
         "resources": {
             "limit": {
                 ...
@@ -87,7 +121,8 @@ Return job details.
         - `resources`
         - `status`
         - `user`
-        - plus lsf-details
+        - status history
+        - additional lsf-details (parts of bjobs -l)
 
 #### Responses
 Success:
