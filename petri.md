@@ -133,7 +133,11 @@ Specifically, the Workflow application will use this to know when to start
 shell command jobs.  The `relative_token_color_stack` can be used to determine
 specifically identify a particular operation inside a nested `parallel_by`.
 
-#### Request Body
+#### Request
+
+    PUT (user-specified-location)
+    Content-Type: application/json
+    Accepts: application/json
 
     {
         "user_data": {
@@ -149,7 +153,11 @@ specifically identify a particular operation inside a nested `parallel_by`.
 ### Data Request
 Sent to notify the consumer application that input is required to continue.
 
-#### Request Body
+#### Request
+
+    PUT (user-specified-location)
+    Content-Type: application/json
+    Accepts: application/json
 
     {
         "user_data": {
