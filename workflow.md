@@ -341,11 +341,8 @@ Request:
 Note that this section is contingent on understanding the APIs of the shell
 command and petri services.
 
-### PUT /v1/callbacks/petri-notifications/
-Types of notifications
-
-- requesting parallel size
-- requesting job execution
+### POST /v1/callbacks/petri/notifications/operations/(id)/(method)
+### POST /v1/callbacks/petri/data-requests/operations/(id)
 
 ### PUT /v1/callbacks/(shell-command-type)/(notification-type)?execution_identifier=(exec_id)
 - update operation status

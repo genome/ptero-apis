@@ -122,8 +122,8 @@ Errors:
 
 
 ## Available HTTP Callbacks
-Any response code other than HTTP 200 (OK) will be considered an error, and the
-callback will be retried.
+Any response code other than HTTP 201 (CREATED) will be considered an error,
+and the callback will be retried.
 
 ### Notification
 Sent to notify the consumer application that a particular transition in the net
@@ -135,35 +135,42 @@ specifically identify a particular operation inside a nested `parallel_by`.
 
 #### Request
 
-    PUT (user-specified-location)
+    POST (user-specified-location)
     Content-Type: application/json
     Accepts: application/json
 
     {
-        "user_data": {
-            "operation_id": 12345
+        "token": {
+            "color": 7,
+            "color_group": 2,
+            "parent_color": 0,
+            "parent_color_group": 0
         },
-        "relative_token_color_stack": [3, 0, 1],
         "response_places": {
-            "success": "http://petri/v1/nets/7/places/12/tokens/42",
-            "failure": "http://petri/v1/nets/7/places/13/tokens/42"
+            "success": "http://petri/v1/nets/7/places/12/tokens/7",
+            "failure": "http://petri/v1/nets/7/places/13/tokens/7"
         }
     }
 
 ### Data Request
 Sent to notify the consumer application that input is required to continue.
 
+Maybe `requested_data` should specify validation for each piece of data,
+e.g. int > 0.
+
 #### Request
 
-    PUT (user-specified-location)
+    POST (user-specified-location)
     Content-Type: application/json
     Accepts: application/json
 
     {
-        "user_data": {
-            "operation_id": 12345
+        "token": {
+            "color": 0,
+            "color_group": 0,
+            "parent_color": null,
+            "parent_color_group": null
         },
         "requested_data": ["split_size"],
-        "relative_token_color_stack": [0],
         "response_place": "http://petri/v1/nets/7/places/28/tokens/0"
     }
