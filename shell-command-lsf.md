@@ -88,6 +88,9 @@ Errors:
 - HTTP 400 (Bad Request)
     - missing key environment, etc.
 
+
+## Required Maintenance API
+
 ### PATCH /v1/jobs/(id)
 Used to cancel a job, or modify request details like resources, queue or
 environment.
@@ -107,9 +110,6 @@ To modify e.g. the LSF queue:
     {
         "queue": "apipe"
     }
-
-
-## Required Maintenance API
 
 ### GET /v1/jobs/(id)
 Return job details.
