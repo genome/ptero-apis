@@ -122,8 +122,8 @@ Errors:
 
 
 ## Available HTTP Callbacks
-Any response code other than HTTP 201 (CREATED) will be considered an error,
-and the callback will be retried.
+Any response code other than HTTP 200 (OK) will be considered an error, and the
+callback will be retried.
 
 ### Notification
 Sent to notify the consumer application that a particular transition in the net
@@ -135,7 +135,7 @@ specifically identify a particular operation inside a nested `parallel_by`.
 
 #### Request
 
-    POST (user-specified-location)
+    PUT (user-specified-location)
     Content-Type: application/json
     Accepts: application/json
 
@@ -160,7 +160,7 @@ e.g. int > 0.
 
 #### Request
 
-    POST (user-specified-location)
+    PUT (user-specified-location)
     Content-Type: application/json
     Accepts: application/json
 
