@@ -182,6 +182,9 @@ Sample content:
           "begin": "2014-02-19 08:30:42-6",
           "status": "crashed",
           "root_operation": "http://workflow.ptero.gsc.wustl.edu/v1/operations/42",
+          "parent_workflow": {
+              "details": "http://workflow.ptero.gsc.wustl.edu/v1/workflows/3/details"
+          },
           "errors": []
     }
 
