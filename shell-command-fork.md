@@ -132,7 +132,7 @@ Success:
 ## Available HTTP Callbacks
 
 Callbacks should be guaranteed to be delivered in the order in which they
-occur.  If a particular callback fails and is being retries, then future
+occur.  If a particular callback fails and is being retried, then future
 callbacks should wait until all previous callbacks succeed.
 
 Callbacks are available for each status update.  Common callbacks for all
