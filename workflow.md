@@ -310,7 +310,13 @@ Request:
       "status": "crashed",
       "owner": "mburnett",
       "begin": "2014-02-19 08:30:42-6",
-      "end": "2014-02-19 08:32:00-6"
+      "end": "2014-02-19 08:32:00-6",
+      "errors": [
+        {
+          "operation": "http://workflow.ptero.gsc.wustl.edu/v1/operations/73",
+          "message": "Some kind of error happened!"
+        }
+      ]
     }
 
 ### Workflow Cancelled
@@ -325,7 +331,9 @@ Request:
       "status": "cancelled",
       "owner": "mburnett",
       "begin": "2014-02-19 08:30:42-6",
-      "end": "2014-02-19 08:32:00-6"
+      "end": "2014-02-19 08:32:00-6",
+      "user": "nnutter",
+      "reason": "Hung due to disk failure, see ticket #54321."
     }
 
 
