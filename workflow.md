@@ -15,7 +15,7 @@ The request body should be in multiple parts:
     - environment variables
 
 #### Responses
-Successful posts should:
+Success:
 
 - HTTP 201 (Created)
     - set the Location header set to the newly created workflow
