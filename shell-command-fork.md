@@ -23,8 +23,9 @@ Required parameters:
     - hash
     - define logging parameters
         - where to go: files, syslog, etc.
-        - whether prepend lines with data (timestamps, etc.)
-        - whether to transform data (e.g. to JSON)
+        - whether/how to transform data
+            - to JSON
+            - prepend lines with data (timestamps, etc.)
 - `umask`
 - `user`
     - string
