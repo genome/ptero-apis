@@ -273,7 +273,6 @@ Fetches the workflow.xml, and data.json provided in the POST.
 Success:
 
 - HTTP 200 (OK)
-    - body may have abbreviated content depending on options (see above)
 
 Errors:
 
