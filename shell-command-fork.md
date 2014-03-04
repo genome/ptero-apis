@@ -49,11 +49,11 @@ Sample:
         "umask": "0002",
         "user": "mburnett",
         "webhooks": {
-            "begun": "http://workflow/v1/callbacks/shell-command-(type)/begun?execution_identifier=42",
-            "succeeded": "http://workflow/v1/callbacks/shell-command-(type)/succeeded?execution_identifier=42",
-            "failed": "http://workflow/v1/callbacks/shell-command-(type)/failed?execution_identifier=42",
-            "cancelled": "http://workflow/v1/callbacks/shell-command-(type)/cancelled?execution_identifier=42"
-            "error": "http://workflow/v1/callbacks/shell-command-(type)/error?execution_identifier=42"
+            "begun": "http://workflow/v1/callbacks/shell-command-fork/begun?execution_identifier=42",
+            "succeeded": "http://workflow/v1/callbacks/shell-command-fork/succeeded?execution_identifier=42",
+            "failed": "http://workflow/v1/callbacks/shell-command-fork/failed?execution_identifier=42",
+            "cancelled": "http://workflow/v1/callbacks/shell-command-fork/cancelled?execution_identifier=42"
+            "error": "http://workflow/v1/callbacks/shell-command-fork/error?execution_identifier=42"
         },
         "logging": {
             "stderr": {

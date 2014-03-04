@@ -48,12 +48,12 @@ Sample:
         "umask": "0002",
         "user": "mburnett",
         "webhooks": {
-            "scheduled": "http://workflow/v1/callbacks/shell-command-(type)/scheduled?execution_identifier=42",
-            "begun": "http://workflow/v1/callbacks/shell-command-(type)/begun?execution_identifier=42",
-            "succeeded": "http://workflow/v1/callbacks/shell-command-(type)/succeeded?execution_identifier=42",
-            "failed": "http://workflow/v1/callbacks/shell-command-(type)/failed?execution_identifier=42",
-            "cancelled": "http://workflow/v1/callbacks/shell-command-(type)/cancelled?execution_identifier=42"
-            "error": "http://workflow/v1/callbacks/shell-command-(type)/error?execution_identifier=42"
+            "scheduled": "http://workflow/v1/callbacks/shell-command-lsf/scheduled?execution_identifier=42",
+            "begun": "http://workflow/v1/callbacks/shell-command-lsf/begun?execution_identifier=42",
+            "succeeded": "http://workflow/v1/callbacks/shell-command-lsf/succeeded?execution_identifier=42",
+            "failed": "http://workflow/v1/callbacks/shell-command-lsf/failed?execution_identifier=42",
+            "cancelled": "http://workflow/v1/callbacks/shell-command-lsf/cancelled?execution_identifier=42"
+            "error": "http://workflow/v1/callbacks/shell-command-lsf/error?execution_identifier=42"
         },
         "logging": {
             "stderr": {
