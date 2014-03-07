@@ -70,10 +70,21 @@ Sample:
 #### Responses
 Success:
 - HTTP 201 (Created)
+    - immediate
+        - set status to scheduled
+    - deferred
+        - execute the shell command
+        - update status
+        - make webhook callbacks
 
 Errors:
 - HTTP 400 (Bad Request)
     - missing key environment, etc.
+    - logging configuration is invalid
+        - bad path to log file
+        - invalid transformation or format string
+    - the first element of the command line is not a valid executable
+        - this may only be verifyable later
 
 
 ## Required Maintenance API
