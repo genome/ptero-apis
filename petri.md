@@ -5,6 +5,26 @@
 ### POST /v1/nets
 Create a new net.
 
+#### Request Body Format
+Should be an augmented Petri net DSL, allowing specification of:
+
+- core components
+    - places
+    - transitions
+    - arcs
+- transitions with complex actions
+    - notification
+    - split
+    - barrier
+    - join
+- shortcuts
+    - bridges (inserts opposite node, allows many to many connection)
+        - between places
+        - between transitions
+    - compound transitions (acts like transition by connecting to places)
+        - send notification, wait for one of N responses (N=2: success/failure)
+        - send data request, wait for response, attach data to token
+
 #### Responses
 Success:
 
