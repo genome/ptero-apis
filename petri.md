@@ -17,6 +17,7 @@ Should be an augmented Petri net DSL, allowing specification of:
     - split
     - barrier
     - join
+    - remove data?
 - shortcuts
     - bridges (inserts opposite node, allows many to many connection)
         - between places
