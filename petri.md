@@ -9,9 +9,15 @@ Create a new net.
 Success:
 
 - HTTP 201 (Created)
-    - response body includes URL for creating tokens in each specially labelled
-      place (e.g. `start_place`)
     - sets the Location header to the newly created net
+    - immediate
+        - know net key/id for net
+        - set net to inactive state, so no processing occurs
+        - response body includes URL for creating tokens in each specially
+          labeled place (e.g. `start_place`)
+    - deferred
+        - construct net in redis
+        - enable the net
 
 Errors:
 
