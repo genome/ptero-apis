@@ -69,6 +69,22 @@ Errors:
     - no such net
     - no place for net
 
+### POST /v1/nets/(net-id)/places/(place-id)/tokens
+Puts a token of a new color with new color group and no ancestry into a place.
+This is used to start the net.
+
+#### Responses
+Success:
+
+- HTTP 201 (Created)
+    - contains color of token inserted
+
+Errors:
+
+- HTTP 404 (Not Found)
+    - no such net
+    - no place for net
+
 ### DELETE /v1/nets/(id)
 Delete persistent representation of a net.  May be deferred.
 
