@@ -26,6 +26,46 @@ Should be an augmented Petri net DSL, allowing specification of:
         - send notification, wait for one of N responses (N=2: success/failure)
         - send data request, wait for response, attach data to token
 
+The body should consist of two sections: `transitions` and `subnets`.
+`transitions` should be a list specifying connection information and actions
+for each transition in the list.  `subnets` should be a dictionary mapping
+subnet names to a dictionary containing the type and parameters for the subnet.
+Allowed subnet types should be defined on the server side and should have a
+well defined set of input and output places that can be referenced by
+transitions.
+
+Sample Body:
+
+    {
+        'subnets': {
+            'subnet_A': {
+                'type': 'success-failure',
+                'notification_url': 'http://someserver/some/place'
+            }
+        },
+
+        'transitions': [
+            {
+                'inputs': ['start'],
+                'outputs': ['subnet_A.input']
+            },
+            {
+                'inputs': ['subnet_A.success'],
+                'action': {
+                    'type': 'notify',
+                    'notification_url': 'http://someserver/success'
+                },
+            },
+            {
+                'inputs': ['subnet_A.failure'],
+                'action': {
+                    'type': 'notify',
+                    'notification_url': 'http://someserver/failure'
+                },
+            }
+        ]
+    }
+
 #### Responses
 Success:
 
