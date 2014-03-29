@@ -53,14 +53,14 @@ Sample Body:
                 'inputs': ['subnet_A.success'],
                 'action': {
                     'type': 'notify',
-                    'notification_url': 'http://someserver/success'
+                    'url': 'http://someserver/success'
                 },
             },
             {
                 'inputs': ['subnet_A.failure'],
                 'action': {
                     'type': 'notify',
-                    'notification_url': 'http://someserver/failure'
+                    'url': 'http://someserver/failure'
                 },
             }
         ]
