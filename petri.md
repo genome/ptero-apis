@@ -213,8 +213,8 @@ Sent to notify the consumer application that a particular transition in the net
 has been reached.
 
 Specifically, the Workflow application will use this to know when to start
-shell command jobs.  The `relative_token_color_stack` can be used to determine
-specifically identify a particular operation inside a nested `parallel_by`.
+shell command jobs.  The `token` information can be used to identify a
+particular operation inside a nested `parallel_by`.
 
 #### Request
 
@@ -229,7 +229,7 @@ specifically identify a particular operation inside a nested `parallel_by`.
             "parent_color": 0,
             "parent_color_group": 0
         },
-        "response_places": {
+        "response_links": {
             "success": "http://petri/v1/nets/7/places/12/tokens/7",
             "failure": "http://petri/v1/nets/7/places/13/tokens/7"
         }
@@ -255,5 +255,5 @@ e.g. int > 0.
             "parent_color_group": null
         },
         "requested_data": ["split_size"],
-        "response_place": "http://petri/v1/nets/7/places/28/tokens/0"
+        "response_link": "http://petri/v1/nets/7/places/28/tokens/0"
     }
