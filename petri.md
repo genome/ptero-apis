@@ -85,7 +85,7 @@ Errors:
 - HTTP 400 (Bad Request)
     - petri net serialization is invalid
 
-### PUT /v1/nets/(net-id)/places/(place-id)/tokens/(color)
+### PUT /v1/nets/(net-id)/places/(place-id)/tokens?color_group=(cg_idx)&color=(color)
 Puts a token into a place.
 
 #### Request Body
@@ -118,6 +118,8 @@ This is used to start the net.
 Success:
 
 - HTTP 201 (Created)
+    - Location header set:
+      `/v1/nets/(net-id)/places/(place-id)/tokens&color_group=(cg_idx)&color=(color)`
     - contains color of token inserted
 
 Errors:
