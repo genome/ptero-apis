@@ -7,12 +7,130 @@ Submits a new workflow.  If posted to the operations URL, creates the workflow
 as a sub-workflow of the operation's workflow.
 
 #### Request Body
-The request body should be in multiple parts:
+Sample body for an N-shaped workflow:
 
-1. workflow.xml (Content-Type: application/xml) should be valid Workflow XML.
-2. data.json (Content-Type: application/json)
-    - inputs for the workflow
-    - environment variables
+    {
+        "workflow": {
+            "operations": {
+                "A": {
+                    "type": "perl-ur-command",
+                    "commandClass": "NullCommand",
+                    "resources": {
+                        "execute": {
+                            "limit": {
+                                "virtual_memory": 204800
+                            },
+                            "request": {
+                                "min_cores": 4,
+                                "memory": 200,
+                                "temp_space": 5
+                            },
+                            "reserve": {
+                                "min_cores": 4,
+                                "memory": 200,
+                                "temp_space": 5
+                            }
+                        }
+                    }
+                },
+                "B": {
+                    "type": "perl-ur-command",
+                    "commandClass": "NullCommand"
+                },
+                "C": {
+                    "type": "perl-ur-command",
+                    "commandClass": "NullCommand"
+                },
+                "D": {
+                    "type": "perl-ur-command",
+                    "commandClass": "NullCommand"
+                }
+            },
+
+            "links": [
+                {
+                    "source": "input",
+                    "destination": "A",
+                    "source_property": "in_a",
+                    "destination_property": "param",
+                },
+                {
+                    "source": "input",
+                    "destination": "B",
+                    "source_property": "in_b",
+                    "destination_property": "param",
+                },
+                {
+                    "source": "input",
+                    "destination": "C",
+                    "source_property": "in_c",
+                    "destination_property": "param",
+                },
+                {
+                    "source": "input",
+                    "destination": "D",
+                    "source_property": "in_d",
+                    "destination_property": "param",
+                },
+
+                {
+                    "source": "A",
+                    "destination": "output",
+                    "source_property": "result",
+                    "destination_property": "out_a",
+                },
+                {
+                    "source": "B",
+                    "destination": "output",
+                    "source_property": "result",
+                    "destination_property": "out_b",
+                },
+                {
+                    "source": "C",
+                    "destination": "output",
+                    "source_property": "result",
+                    "destination_property": "out_c",
+                },
+                {
+                    "source": "D",
+                    "destination": "output",
+                    "source_property": "result",
+                    "destination_property": "out_d",
+                },
+
+                {
+                    "source": "A",
+                    "destination": "C",
+                    "source_property": "result",
+                    "destination_property": "res1",
+                },
+                {
+                    "source": "A",
+                    "destination": "D",
+                    "source_property": "result",
+                    "destination_property": "res1",
+                },
+                {
+                    "source": "B",
+                    "destination": "D",
+                    "source_property": "result",
+                    "destination_property": "res2",
+                }
+
+            ]
+        },
+
+        "inputs": {
+            "in_a": "one",
+            "in_b": "two",
+            "in_c": "three",
+            "in_d": "four"
+        },
+
+        "environment": {
+            "PERL5LIB": "some:user:path"
+        }
+    }
 
 #### Responses
 Success:
@@ -30,12 +148,13 @@ Success:
 Errors:
 
 - HTTP 400 (Bad Request)
-    - The workflow XML cannot be validated against the schema.
-    - The inputs JSON is not a usable hash.
+    - The workflow cannot be validated.
+        - Needed inputs not specified.
+        - Invalid link.
     - The environment variables are not complete enough (e.g. no user or PWD)
 
 Errors discovered after initial submission should show up in later polling of
-workflow status as "error".
+workflow status (`/v1/workflows/(id)/details`) as "error".
 
 ### GET /v1/workflows/(id)/report
 Fetches the data for a given workflow like `genome model build view` or
