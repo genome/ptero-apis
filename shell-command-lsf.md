@@ -5,6 +5,9 @@
 ### POST /v1/jobs
 Schedule a new job.
 
+The job status should be polled in case the pre/post-exec callbacks don't occur
+as expected.
+
 #### Request Body
 Required parameters:
 
