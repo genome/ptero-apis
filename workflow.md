@@ -307,35 +307,33 @@ Sample content:
           "errors": []
     }
 
-### GET /v1/operations/(op-id)/inputs
-Used by wrappers running individual operations to fetch their inputs.
-
-#### Query String Parameters
-- `parallel_identifier`
-    - used to identify the entire parallel stack
+### GET /v1/execution/(parallel-identifier)
+Used by wrappers running individual operations to fetch their inputs. The
+parallel identifier uniquely specifies the entire parallel stack and its
+operation ID.
 
 #### Responses
 Success:
 
-- respond with HTTP 200 (OK)
-- body is simple hash of inputs
+- HTTP 200 (OK)
+- body is JSON dict of inputs
 
 Errors:
 
 - HTTP 404 (Not Found)
-    - unknown operation
     - invalid `parallel_identifier`
     - inputs for this operation are not yet available (other status code?)
 
-### PUT /v1/operations/(op-id)/outputs
-Used by wrappers running individual operations to save their outputs.
-
-#### Query String Parameters
-- `parallel_identifier`
-    - used to identify the entire parallel stack
+### PUT /v1/execution/(parallel-identifier)
+Used by wrappers running individual operations to save their outputs. The
+parallel identifier uniquely specifies the entire parallel stack and its
+operation ID.
 
 #### Request Body
-Simple hash of outputs.
+
+    {
+      "output": { ... dictionary of outputs ... }
+    }
 
 #### Responses
 Success:
@@ -345,7 +343,6 @@ Success:
 Errors:
 
 - HTTP 404 (Not Found)
-    - unknown operation
     - invalid `parallel_identifier`
 
 
