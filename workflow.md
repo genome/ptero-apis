@@ -233,7 +233,12 @@ Errors:
 ## Required Maintenance API
 
 ### PATCH /v1/workflows/(id)
-This is only used to cancel the workflow.
+This is only used to cancel (or possibly pause) the workflow.  Whether this
+kills running jobs should be configurable.
+
+Caution:  This needs to be sure to cancel all sub-workflows as well.  That may
+mean pausing/expiring multiple petri nets.
+
 
 #### Request Body
 
