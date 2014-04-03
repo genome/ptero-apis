@@ -157,45 +157,9 @@ Errors discovered after initial submission should show up in later polling of
 workflow status as "error".
 
 ### GET /v1/workflows/(id)
-Fetches the data for a given workflow.
-
-This end point will be used for diverse actions:
-- polling for workflow status
-- "build view" report generation (essentially returning a view-model)
-- maintenance queries
-    - get the workflow's DAG
-
-To poll workflow status for completion, a query string similar to
-`_fields=status,errors` should be used.  This will prevent the API from
-generating and transmitting details about every step in a workflow.
-
-To generate a "build view" dataset, specify the `report` key in the query
-string: `_fields=+report`.
-
-To get the dag, that field must be specified: `_fields=dag`.
-
-#### Query String
-- `_fields`
-    - comma separated list of key names
-    - allows clients to specify exactly which fields to return
-    - clients can request fields in addition to the default by using +field_name
-    - clients can remove fields from the default by using -field_name
-    - special fields and field shortcuts should begin with an underscore, eg
-      \_details
-- `expand-parallel-by` (given field `report`)
-    - enum
-        - none: only summarize parallel-by statuses -- no details
-        - crashed-only: show details for crashed steps (default)
-        - all: show details for all steps
-- `exceution-history` (given field `report`)
-    - boolean
-    - whether to show details of shortcut/execute history
-- `depth` (given field `report`)
-    - integer
-    - maximum nesting depth for workflow models/sub-workflows
-    - if unspecified, no limit
-
-<!-- TODO: Specify fields -->
+Fetches the data for a given workflow.  This should include the original data
+from the POST, plus additional fields like `status`, timestamps, and links to
+related data like `executions` and `reports`.
 
 #### Responses
 Success:
@@ -207,9 +171,16 @@ Errors:
 
 - HTTP 404 (Not Found)
 
+
+### GET /v1/reports/(report-type)
+This will be used for diverse, complex actions:
+- polling for workflow status
+- "build view" report generation
+- complex maintenance queries
+
 Request:
 
-    GET /v1/workflows/(id)?fields=id,report
+    GET /v1/reports/workflow-view?workflow-id=1234
 
 Sample abbreviated content:
 
@@ -310,7 +281,7 @@ of fields can be produced with the \_details shorcut.
 
 Request:
 
-    GET /v1/workflows/(id)?fields=_details
+    GET /v1/reports/workflow-status?workflow-id=1234
 
 Content:
 
