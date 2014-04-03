@@ -332,7 +332,7 @@ Errors:
     - invalid `parallel_identifier`
     - inputs for this operation are not yet available (other status code?)
 
-### PUT /v1/execution/(parallel-identifier)
+### PATCH /v1/execution/(parallel-identifier)
 Used by wrappers running individual operations to save their outputs. The
 parallel identifier uniquely specifies the entire parallel stack and its
 operation ID.
