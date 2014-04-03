@@ -470,7 +470,7 @@ Request:
     Accepts: application/json
 
     {
-      "id": 42,
+      "url": "http://workflow/v1/workflows/42",
       "status": "done",
       "owner": "mburnett",
       "begin": "2014-02-19 08:30:42-6",
@@ -485,14 +485,14 @@ Request:
     Accepts: application/json
 
     {
-      "id": 42,
+      "url": "http://workflow/v1/workflows/42",
       "status": "crashed",
       "owner": "mburnett",
       "begin": "2014-02-19 08:30:42-6",
       "end": "2014-02-19 08:32:00-6",
       "errors": [
         {
-          "operation": "http://workflow.ptero.gsc.wustl.edu/v1/operations/73",
+          "operation": "http://workflow.ptero.gsc.wustl.edu/v1/executions/73",
           "message": "Some kind of error happened!"
         }
       ]
@@ -506,7 +506,7 @@ Request:
     Accepts: application/json
 
     {
-      "id": 42,
+      "url": "http://workflow/v1/workflows/42",
       "status": "cancelled",
       "owner": "mburnett",
       "begin": "2014-02-19 08:30:42-6",
