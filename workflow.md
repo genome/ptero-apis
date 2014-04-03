@@ -490,11 +490,11 @@ Request:
 Note that this section is contingent on understanding the APIs of the shell
 command and petri services.
 
-### PUT /v1/callbacks/petri/notifications/operations/(operation_id)/(method)
+### PUT /v1/callbacks/petri/notifications/executions/(execution-id)/(method)
 This callback is used to notify us to begin either `shortcut` or `execute` for
 an operation.
 
-### PUT /v1/callbacks/petri/data-request/operations/(operation_id)
+### PUT /v1/callbacks/petri/data-request/executions/(execution-id)?input=foo
 This callback is used to request the size of a parallel-by operation.
 
 ### PUT /v1/callbacks/(shell-command-type)/(notification-type)?execution_identifier=(exec_id)
