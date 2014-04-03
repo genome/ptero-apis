@@ -65,5 +65,5 @@ my $report = $workflow->report;
 ### Convert Workflow XML
 
 ```
-my $workflow = PTero::Deprecated::GMSWorkflowConverter::($workflow_xml);
+my $workflow = PTero::Deprecated::GMSWorkflowConverter::convert($workflow_xml);
 ```
