@@ -59,7 +59,7 @@ system.
 ```
 my $workflow = PTero::Workflow->new(url => "http://workflow/v1/workflows/42");
 
-my $report = $workflow->report;
+my $report = $workflow->report('status-view');
 ```
 
 ### Convert Workflow XML
