@@ -354,6 +354,10 @@ Sample response body:
         "inputs": {
             "foo": "bar"
         },
+        "operation": {
+            "type": "perl-ur-command",
+            "commandClass": "Some::Command::Class"
+        }
         "attempts": [
             {
                 "method": "shortcut",
