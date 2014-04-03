@@ -2,7 +2,7 @@
 
 ## Critical User Facing API
 
-### POST /v1/workflows or /v1/operations/(id)/workflows
+### POST /v1/workflows or /v1/executions/(execution-id)/workflows
 Submits a new workflow.  If posted to the operations URL, creates the workflow
 as a sub-workflow of the operation's workflow.
 
@@ -154,25 +154,12 @@ Errors:
     - The environment variables are not complete enough (e.g. no user or PWD)
 
 Errors discovered after initial submission should show up in later polling of
-workflow status (`/v1/workflows/(id)/details`) as "error".
+workflow status as "error".
 
-### GET /v1/workflows/(id)/report
-Fetches the data for a given workflow like `genome model build view` or
-`workflow show`.
-
-#### Query String
-- `expand-parallel-by`
-    - enum
-        - none: only summarize parallel-by statuses -- no details
-        - crashed-only: show details for crashed steps (default)
-        - all: show details for all steps
-- `exceution-history`
-    - boolean
-    - whether to show details of shortcut/execute history
-- `depth`
-    - integer
-    - maximum nesting depth for workflow models/sub-workflows
-    - if unspecified, no limit
+### GET /v1/workflows/(id)
+Fetches the data for a given workflow.  This should include the original data
+from the POST, plus additional fields like `status`, timestamps, and links to
+related data like `executions` and `reports`.
 
 #### Responses
 Success:
@@ -184,104 +171,139 @@ Errors:
 
 - HTTP 404 (Not Found)
 
+
+### GET /v1/reports/(report-type)
+This will be used for diverse, complex actions:
+- polling for workflow status
+- "build view" report generation
+- complex maintenance queries
+
+Request:
+
+    GET /v1/reports/workflow-view?workflow-id=1234
+
 Sample abbreviated content:
 
-    [
-      {
-        "name": "A unique name in this model",
-        "type": "command",
-        "class": "Genome::Model::Build::Command::RnaSeq::Something",
-        "status": "done",
-        "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.2.err",
-        "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.2.out",
-        "executions": [
-          {
-            "type": "shortcut",
-            "method": "fork-shell",
-            "begin": "2014-02-19 08:30:47-6",
-            "end": "2014-02-19 08:32:00-6",
-            "status": "done",
-          }
-        ]
-      },
-      {
-        "name": "Another unique name",
-        "type": "model",
-        "status": "crashed",
-        "children": [
-          {
-            "name": "A unique name in this model",
-            "type": "command",
-            "class": "Genome::Model::Build::Command::RnaSeq::SomethingElse",
-            "status": "crashed",
-            "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.5.err",
-            "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.5.out",
-            "executions": [
-              {
-                "type": "fork-shell",
-                "method": "shortcut",
-                "begin": "2014-02-19 08:30:47-6",
-                "end": "2014-02-19 08:30:57-6",
-                "status": "crashed",
-              },
-              {
-                "type": "lsf-shell",
-                "method": "execute",
-                "begin": "2014-02-19 08:31:47-6",
-                "end": "2014-02-19 08:34:00-6",
-                "status": "crashed",
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "A sweet, parallel-by operation",
-        "type": "event",
-        "class": "Genome::Model::Event::Build::Some::Thing",
-        "parallel": {
-          "statuses": {
-            "crashed": 1,
-            "done": 22,
-            "running": 1
-          },
-          "crashed-data": [
+    {
+      "id": 1234,
+      "report": [
+        {
+          "name": "A unique name in this model",
+          "type": "command",
+          "class": "Genome::Model::Build::Command::RnaSeq::Something",
+          "status": "done",
+          "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.2.err",
+          "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.2.out",
+          "executions": [
             {
+              "type": "shortcut",
+              "method": "fork-shell",
+              "begin": "2014-02-19 08:30:47-6",
+              "end": "2014-02-19 08:32:00-6",
               "status": "done",
-              "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_sweet_parallel_by_operation.4_14.err",
-              "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_sweet_parallel_by_operation.4_14.out",
+            }
+          ]
+        },
+        {
+          "name": "Another unique name",
+          "type": "model",
+          "status": "crashed",
+          "children": [
+            {
+              "name": "A unique name in this model",
+              "type": "command",
+              "class": "Genome::Model::Build::Command::RnaSeq::SomethingElse",
+              "status": "crashed",
+              "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.5.err",
+              "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.5.out",
               "executions": [
                 {
                   "type": "fork-shell",
                   "method": "shortcut",
+                  "begin": "2014-02-19 08:30:47-6",
+                  "end": "2014-02-19 08:30:57-6",
                   "status": "crashed",
-                  "begin": "2014-02-19 08:31:47-6",
-                  "end": "2014-02-19 08:31:47-6",
                 },
                 {
                   "type": "lsf-shell",
                   "method": "execute",
+                  "begin": "2014-02-19 08:31:47-6",
+                  "end": "2014-02-19 08:34:00-6",
                   "status": "crashed",
-                  "begin": "2014-02-19 08:33:47-6",
-                  "end": "2014-02-19 08:34:47-6",
-                },
+                }
               ]
             }
           ]
+        },
+        {
+          "name": "A sweet, parallel-by operation",
+          "type": "event",
+          "class": "Genome::Model::Event::Build::Some::Thing",
+          "parallel": {
+            "statuses": {
+              "crashed": 1,
+              "done": 22,
+              "running": 1
+            },
+            "crashed-data": [
+              {
+                "status": "done",
+                "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_sweet_parallel_by_operation.4_14.err",
+                "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_sweet_parallel_by_operation.4_14.out",
+                "executions": [
+                  {
+                    "type": "fork-shell",
+                    "method": "shortcut",
+                    "status": "crashed",
+                    "begin": "2014-02-19 08:31:47-6",
+                    "end": "2014-02-19 08:31:47-6",
+                  },
+                  {
+                    "type": "lsf-shell",
+                    "method": "execute",
+                    "status": "crashed",
+                    "begin": "2014-02-19 08:33:47-6",
+                    "end": "2014-02-19 08:34:47-6",
+                  },
+                ]
+              }
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
 
 <!-- Do we want to hide sub-model details if they are 'new' or 'done'? -->
 
+Here's an example used by the client to poll for workflow completion. Errors in
+deferred portions of workflow submission must show up in this query. This set
+of fields can be produced with the \_details shorcut.
+
+Request:
+
+    GET /v1/reports/workflow-status?workflow-id=1234
+
+Content:
+
+    {
+          "name": "Some Exciting Workflow",
+          "id": 1234,
+          "owner": "mburnett",
+          "created": "2014-02-19 08:27:12-6",
+          "begin": "2014-02-19 08:30:42-6",
+          "status": "crashed",
+          "parent_workflow": {
+              "href": "http://workflow/v1/workflows/3"
+          },
+          "errors": []
+    }
 
 ## Critical System Facing API
 
-### GET /v1/workflows/(id)/details
-Fetches the top-level status for a given workflow.
-
-Used by client to poll for workflow completion.  Errors in deferred portions of
-workflow submission must show up in this query.
+### GET /v1/execution/(execution-id)
+Used by wrappers running individual operations to fetch their inputs. The
+execution id uniquely specifies the entire parallel stack and its
+operation ID.
 
 #### Responses
 Success:
@@ -291,51 +313,61 @@ Success:
 Errors:
 
 - HTTP 404 (Not Found)
-
-Sample content:
-
-    {
-          "name": "Some Exciting Workflow",
-          "owner": "mburnett",
-          "created": "2014-02-19 08:27:12-6",
-          "begin": "2014-02-19 08:30:42-6",
-          "status": "crashed",
-          "root_operation": "http://workflow.ptero.gsc.wustl.edu/v1/operations/42",
-          "parent_workflow": {
-              "details": "http://workflow.ptero.gsc.wustl.edu/v1/workflows/3/details"
-          },
-          "errors": []
-    }
-
-### GET /v1/operations/(op-id)/inputs
-Used by wrappers running individual operations to fetch their inputs.
-
-#### Query String Parameters
-- `parallel_identifier`
-    - used to identify the entire parallel stack
-
-#### Responses
-Success:
-
-- respond with HTTP 200 (OK)
-- body is simple hash of inputs
-
-Errors:
-
-- HTTP 404 (Not Found)
-    - unknown operation
-    - invalid `parallel_identifier`
+    - invalid `execution-id`
     - inputs for this operation are not yet available (other status code?)
 
-### PUT /v1/operations/(op-id)/outputs
-Used by wrappers running individual operations to save their outputs.
 
-#### Query String Parameters
-- `parallel_identifier`
-    - used to identify the entire parallel stack
+Sample response body:
+
+    {
+        "status": "running",
+        "inputs": {
+            "foo": "bar"
+        },
+        "operation": {
+            "type": "perl-ur-command",
+            "commandClass": "Some::Command::Class"
+        }
+        "attempts": [
+            {
+                "method": "shortcut",
+                "service": "fork",
+                "status": "failed",
+                "resources": {
+                    ...
+                },
+                "stats": {
+                    "cpu_time": 34.1,
+                    "wall_time": 14.2,
+                    "max_rss": 1234,
+                    ...
+                }
+                "host": "host123.some.place.edu",
+                ...
+            },
+            {
+                "method": "execute",
+                "service": "lsf",
+                "status": "running",
+                "resources": {
+                    ...
+                },
+                "host": "host321.some.place.edu",
+                ...
+            }
+        ],
+    }
+
+### PATCH /v1/execution/(execution-id)
+Used by wrappers running individual operations to save their outputs. The
+execution id uniquely specifies the entire parallel stack and its
+operation ID.
 
 #### Request Body
-Simple hash of outputs.
+
+    {
+      "output": { ... dictionary of outputs ... }
+    }
 
 #### Responses
 Success:
@@ -345,8 +377,7 @@ Success:
 Errors:
 
 - HTTP 404 (Not Found)
-    - unknown operation
-    - invalid `parallel_identifier`
+    - invalid `execution-id`
 
 
 ## Required Maintenance API
@@ -357,7 +388,6 @@ kills running jobs should be configurable.
 
 Caution:  This needs to be sure to cancel all sub-workflows as well.  That may
 mean pausing/expiring multiple petri nets.
-
 
 #### Request Body
 
@@ -390,17 +420,12 @@ List known workflows.
 #### Responses
 - HTTP 200 (OK)
 
-### GET /v1/workflows/(id)
-Fetches the workflow.xml, and data.json provided in the POST.
+### GET /v1/executions and /v1/workflows/(workflow-id)/executions
+This could be useful to collect stats about particular kinds of executions
+(like `wall_time` for a particular command class).
 
 #### Responses
-Success:
-
 - HTTP 200 (OK)
-
-Errors:
-
-- HTTP 404 (Not Found)
 
 
 ## Available HTTP Callbacks
@@ -415,7 +440,7 @@ Request:
     Accepts: application/json
 
     {
-      "id": 42,
+      "url": "http://workflow/v1/workflows/42",
       "status": "done",
       "owner": "mburnett",
       "begin": "2014-02-19 08:30:42-6",
@@ -430,14 +455,14 @@ Request:
     Accepts: application/json
 
     {
-      "id": 42,
+      "url": "http://workflow/v1/workflows/42",
       "status": "crashed",
       "owner": "mburnett",
       "begin": "2014-02-19 08:30:42-6",
       "end": "2014-02-19 08:32:00-6",
       "errors": [
         {
-          "operation": "http://workflow.ptero.gsc.wustl.edu/v1/operations/73",
+          "execution": "http://workflow/v1/executions/73",
           "message": "Some kind of error happened!"
         }
       ]
@@ -451,7 +476,7 @@ Request:
     Accepts: application/json
 
     {
-      "id": 42,
+      "url": "http://workflow/v1/workflows/42",
       "status": "cancelled",
       "owner": "mburnett",
       "begin": "2014-02-19 08:30:42-6",
@@ -465,11 +490,11 @@ Request:
 Note that this section is contingent on understanding the APIs of the shell
 command and petri services.
 
-### PUT /v1/callbacks/petri/notifications/operations/(operation_id)/(method)
+### PUT /v1/callbacks/petri/notifications/executions/(execution-id)/(method)
 This callback is used to notify us to begin either `shortcut` or `execute` for
 an operation.
 
-### PUT /v1/callbacks/petri/data-request/operations/(operation_id)
+### PUT /v1/callbacks/petri/data-request/executions/(execution-id)?input=foo
 This callback is used to request the size of a parallel-by operation.
 
 ### PUT /v1/callbacks/(shell-command-type)/(notification-type)?execution_identifier=(exec_id)
