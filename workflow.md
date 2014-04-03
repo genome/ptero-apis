@@ -315,9 +315,9 @@ Content:
 
 ## Critical System Facing API
 
-### GET /v1/execution/(parallel-identifier)
+### GET /v1/execution/(execution-id)
 Used by wrappers running individual operations to fetch their inputs. The
-parallel identifier uniquely specifies the entire parallel stack and its
+execution id uniquely specifies the entire parallel stack and its
 operation ID.
 
 #### Responses
@@ -329,12 +329,12 @@ Success:
 Errors:
 
 - HTTP 404 (Not Found)
-    - invalid `parallel_identifier`
+    - invalid `execution-id`
     - inputs for this operation are not yet available (other status code?)
 
-### PATCH /v1/execution/(parallel-identifier)
+### PATCH /v1/execution/(execution-id)
 Used by wrappers running individual operations to save their outputs. The
-parallel identifier uniquely specifies the entire parallel stack and its
+execution id uniquely specifies the entire parallel stack and its
 operation ID.
 
 #### Request Body
@@ -351,7 +351,7 @@ Success:
 Errors:
 
 - HTTP 404 (Not Found)
-    - invalid `parallel_identifier`
+    - invalid `execution-id`
 
 
 ## Required Maintenance API
