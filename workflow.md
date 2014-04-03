@@ -2,7 +2,7 @@
 
 ## Critical User Facing API
 
-### POST /v1/workflows or /v1/operations/(id)/workflows
+### POST /v1/workflows or /v1/executions/(execution-id)/workflows
 Submits a new workflow.  If posted to the operations URL, creates the workflow
 as a sub-workflow of the operation's workflow.
 
