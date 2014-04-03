@@ -159,8 +159,23 @@ workflow status as "error".
 ### GET /v1/workflows/(id)
 Fetches the data for a given workflow.
 
+This end point will be used for diverse actions:
+- polling for workflow status
+- "build view" report generation (essentially returning a view-model)
+- maintenance queries
+    - get the workflow's DAG
+
+To poll workflow status for completion, a query string similar to
+`_fields=status,errors` should be used.  This will prevent the API from
+generating and transmitting details about every step in a workflow.
+
+To generate a "build view" dataset, specify the `report` key in the query
+string: `_fields=+report`.
+
+To get the dag, that field must be specified: `_fields=dag`.
+
 #### Query String
-- `fields`
+- `_fields`
     - comma separated list of key names
     - allows clients to specify exactly which fields to return
     - clients can request fields in addition to the default by using +field_name
