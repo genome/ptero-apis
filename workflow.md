@@ -324,13 +324,50 @@ operation ID.
 Success:
 
 - HTTP 200 (OK)
-- body is JSON dict of inputs
 
 Errors:
 
 - HTTP 404 (Not Found)
     - invalid `execution-id`
     - inputs for this operation are not yet available (other status code?)
+
+
+Sample response body:
+
+    {
+        "status": "running",
+        "inputs": {
+            "foo": "bar"
+        },
+        "attempts": [
+            {
+                "method": "shortcut",
+                "service": "fork",
+                "status": "failed",
+                "resources": {
+                    ...
+                },
+                "stats": {
+                    "cpu_time": 34.1,
+                    "wall_time": 14.2,
+                    "max_rss": 1234,
+                    ...
+                }
+                "host": "host123.some.place.edu",
+                ...
+            },
+            {
+                "method": "execute",
+                "service": "lsf",
+                "status": "running",
+                "resources": {
+                    ...
+                },
+                "host": "host321.some.place.edu",
+                ...
+            }
+        ],
+    }
 
 ### PATCH /v1/execution/(execution-id)
 Used by wrappers running individual operations to save their outputs. The
