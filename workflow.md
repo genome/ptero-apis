@@ -420,7 +420,7 @@ List known workflows.
 #### Responses
 - HTTP 200 (OK)
 
-### GET /v1/executions
+### GET /v1/executions and /v1/workflows/(workflow-id)/executions
 This could be useful to collect stats about particular kinds of executions
 (like `wall_time` for a particular command class).
 
