@@ -450,6 +450,13 @@ List known workflows.
 #### Responses
 - HTTP 200 (OK)
 
+### GET /v1/executions
+This could be useful to collect stats about particular kinds of executions
+(like `wall_time` for a particular command class).
+
+#### Responses
+- HTTP 200 (OK)
+
 
 ## Available HTTP Callbacks
 These are HTTP requests that the workflow service can make to registered
