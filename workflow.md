@@ -151,6 +151,8 @@ Errors:
     - The workflow cannot be validated.
         - Needed inputs not specified.
         - Invalid link.
+        - Invalid operation names: 'input connector' and 'output connector' are
+          reserved
     - The environment variables are not complete enough (e.g. no user or PWD)
 
 Errors discovered after initial submission should show up in later polling of
