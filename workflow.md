@@ -300,7 +300,7 @@ Content:
 
 ## Critical System Facing API
 
-### GET /v1/execution/(execution-id)
+### GET /v1/executions/(execution-id)
 Used by wrappers running individual operations to fetch their inputs. The
 execution id uniquely specifies the entire parallel stack and its
 operation ID.
@@ -358,7 +358,7 @@ Sample response body:
         ],
     }
 
-### PATCH /v1/execution/(execution-id)
+### PATCH /v1/executions/(execution-id)
 Used by wrappers running individual operations to save their outputs. The
 execution id uniquely specifies the entire parallel stack and its
 operation ID.
