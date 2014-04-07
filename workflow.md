@@ -49,25 +49,25 @@ Sample body for an N-shaped workflow:
 
             "links": [
                 {
-                    "source": "input",
+                    "source": "input connector",
                     "destination": "A",
                     "source_property": "in_a",
                     "destination_property": "param",
                 },
                 {
-                    "source": "input",
+                    "source": "input connector",
                     "destination": "B",
                     "source_property": "in_b",
                     "destination_property": "param",
                 },
                 {
-                    "source": "input",
+                    "source": "input connector",
                     "destination": "C",
                     "source_property": "in_c",
                     "destination_property": "param",
                 },
                 {
-                    "source": "input",
+                    "source": "input connector",
                     "destination": "D",
                     "source_property": "in_d",
                     "destination_property": "param",
@@ -75,25 +75,25 @@ Sample body for an N-shaped workflow:
 
                 {
                     "source": "A",
-                    "destination": "output",
+                    "destination": "output connector",
                     "source_property": "result",
                     "destination_property": "out_a",
                 },
                 {
                     "source": "B",
-                    "destination": "output",
+                    "destination": "output connector",
                     "source_property": "result",
                     "destination_property": "out_b",
                 },
                 {
                     "source": "C",
-                    "destination": "output",
+                    "destination": "output connector",
                     "source_property": "result",
                     "destination_property": "out_c",
                 },
                 {
                     "source": "D",
-                    "destination": "output",
+                    "destination": "output connector",
                     "source_property": "result",
                     "destination_property": "out_d",
                 },
