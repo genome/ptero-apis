@@ -493,16 +493,32 @@ Note that this section is contingent on understanding the APIs of the shell
 command and petri services.
 
 ### PUT /v1/callbacks/operations/(operation-id)/create-scope
-Defines a new scope for the operation's inputs and outputs.  This is needed to
-register token colors with nested parallel-by scopes.
+The end point for callbacks from the `create-color-group` Petri action.
+
+Defines a new scope for the operation's inputs and outputs based on the color
+group sent in the body.  This is needed to register token colors with nested
+parallel-by scopes.
+
+### PUT /v1/callbacks/operations/(operation-id)/create-top-level-scope
+An end point for the `notify` Petri action.
+
+Defines the top level scope for a workflow based on the color group information
+of the token that was sent in the body.
 
 ### PUT /v1/callbacks/operations/(operation-id)/begin/(method)
+An end point for the `notify` Petri action.
+
 This callback is used to notify us to begin either `shortcut` or `execute` for
 a particular operation + token color (token color is specified in the body).
 
 ### PUT /v1/callbacks/operations/(operation-id)/data-request?input=foo
+An end point for the `notify` Petri action.
+
 This callback is used to request the size of a parallel-by operation.
 
 ### PUT /v1/callbacks/executions/(execution-id)/(shell-command-type)/(notification-type)
+End points for the various shell command interactions.  These should be
+described individually.
+
 - update operation status
 - create appropriate token in the petri net
