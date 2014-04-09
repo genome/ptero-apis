@@ -281,11 +281,11 @@ This notification is optional.
 
     {
         "color_group": {
-            "index": 0,
-            "color_begin": 0,
-            "color_end": 1,
-            "parent_color": null,
-            "parent_color_group": null
+            "index": 2,
+            "color_begin": 3,
+            "color_end": 14,
+            "parent_color": 0,
+            "parent_color_group": 0
         },
         "response_link": "http://petri/v1/nets/7/places/34/tokens/0"
     }
