@@ -14,7 +14,8 @@ Should be an augmented Petri net DSL, allowing specification of:
     - arcs
 - transitions with complex actions
     - notification
-    - split
+    - create color group (requires `color_group_size` on token)
+    - split (requires `color_group_index` on token)
     - barrier
     - join
     - remove data?
@@ -266,4 +267,25 @@ e.g. int > 0.
         },
         "requested_data": ["split_size"],
         "response_link": "http://petri/v1/nets/7/places/28/tokens/0"
+    }
+
+### Color Group Creation Notification
+Sent to notify the consumer application that a color group has been created.
+This notification is optional.
+
+#### Request
+
+    PUT (user-specified-location)
+    Content-Type: application/json
+    Accepts: application/json
+
+    {
+        "color_group": {
+            "index": 0,
+            "color_begin": 0,
+            "color_end": 1,
+            "parent_color": null,
+            "parent_color_group": null
+        },
+        "response_link": "http://petri/v1/nets/7/places/34/tokens/0"
     }
