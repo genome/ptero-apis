@@ -492,13 +492,17 @@ Request:
 Note that this section is contingent on understanding the APIs of the shell
 command and petri services.
 
-### PUT /v1/callbacks/petri/notifications/executions/(execution-id)/(method)
-This callback is used to notify us to begin either `shortcut` or `execute` for
-an operation.
+### PUT /v1/callbacks/operations/(operation-id)/create-scope
+Defines a new scope for the operation's inputs and outputs.  This is needed to
+register token colors with nested parallel-by scopes.
 
-### PUT /v1/callbacks/petri/data-request/executions/(execution-id)?input=foo
+### PUT /v1/callbacks/operations/(operation-id)/begin/(method)
+This callback is used to notify us to begin either `shortcut` or `execute` for
+a particular operation + token color (token color is specified in the body).
+
+### PUT /v1/callbacks/operations/(operation-id)/data-request?input=foo
 This callback is used to request the size of a parallel-by operation.
 
-### PUT /v1/callbacks/(shell-command-type)/(notification-type)?execution_identifier=(exec_id)
+### PUT /v1/callbacks/executions/(execution-id)/(shell-command-type)/(notification-type)
 - update operation status
 - create appropriate token in the petri net
