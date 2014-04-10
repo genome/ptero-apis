@@ -226,15 +226,13 @@ particular operation inside a nested `parallel_by`.
     Accepts: application/json
 
     {
-        "token": {
-            "color": 7,
-            "color_group": {
-                "index": 2,
-                "color_begin": 1,
-                "color_end": 14,
-                "parent_color": 0,
-                "parent_color_group_index": 0
-            }
+        "token_color": 7,
+        "color_group": {
+            "index": 2,
+            "color_begin": 1,
+            "color_end": 14,
+            "parent_color": 0,
+            "parent_color_group_index": 0
         },
         "response_links": {
             "success": "http://petri/v1/nets/7/places/12/tokens/7",
@@ -255,15 +253,13 @@ e.g. int > 0.
     Accepts: application/json
 
     {
-        "token": {
-            "color": 0,
-            "color_group": {
-                "index": 0,
-                "color_begin": 0,
-                "color_end": 1,
-                "parent_color": null,
-                "parent_color_group": null
-            }
+        "token_color": 0,
+        "color_group": {
+            "index": 0,
+            "color_begin": 0,
+            "color_end": 1,
+            "parent_color": null,
+            "parent_color_group": null
         },
         "requested_data": ["split_size"],
         "response_link": "http://petri/v1/nets/7/places/28/tokens/0"
