@@ -496,16 +496,11 @@ command and petri services.
 
 #### PUT /v1/callbacks/workflows/(workflow-id)/create-scope-set
 The end point for callbacks from the `create-color-group` Petri action.
+An end point for the `notify` Petri action (once per workflow).
 
 Defines a new layer of scopes in a workflow based on the color group sent in
 the body.  This is needed to associated token colors with nested parallel-by
 scopes.
-
-#### PUT /v1/callbacks/workflows/(workflow-id)/create-scope
-An end point for the `notify` Petri action.
-
-Defines the top level scope for a workflow based on the color group information
-of the token that was sent in the body.
 
 #### PUT /v1/callbacks/operations/(operation-id)/begin/(method)
 An end point for the `notify` Petri action.
