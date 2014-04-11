@@ -492,13 +492,38 @@ Request:
 Note that this section is contingent on understanding the APIs of the shell
 command and petri services.
 
-### PUT /v1/callbacks/petri/notifications/executions/(execution-id)/(method)
-This callback is used to notify us to begin either `shortcut` or `execute` for
-an operation.
+### Petri Listeners
 
-### PUT /v1/callbacks/petri/data-request/executions/(execution-id)?input=foo
+#### PUT /v1/callbacks/workflows/(workflow-id)/create-scope-set
+The end point for callbacks from the `create-color-group` Petri action.
+
+Defines a new layer of scopes in a workflow based on the color group sent in
+the body.  This is needed to associated token colors with nested parallel-by
+scopes.
+
+#### PUT /v1/callbacks/workflows/(workflow-id)/create-scope
+An end point for the `notify` Petri action.
+
+Defines the top level scope for a workflow based on the color group information
+of the token that was sent in the body.
+
+#### PUT /v1/callbacks/operations/(operation-id)/begin/(method)
+An end point for the `notify` Petri action.
+
+This callback is used to notify us to begin either `shortcut` or `execute` for
+a particular operation + scope (token color is specified in the body, which can
+be used to figure out the scope).
+
+#### PUT /v1/callbacks/operations/(operation-id)/data-request?input=foo
+An end point for the `notify` Petri action.
+
 This callback is used to request the size of a parallel-by operation.
 
-### PUT /v1/callbacks/(shell-command-type)/(notification-type)?execution_identifier=(exec_id)
+### Shell Command Listeners
+
+#### PUT /v1/callbacks/executions/(execution-id)/(shell-command-type)/(notification-type)
+End points for the various shell command interactions.  These should be
+described individually.
+
 - update operation status
 - create appropriate token in the petri net

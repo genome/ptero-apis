@@ -14,7 +14,8 @@ Should be an augmented Petri net DSL, allowing specification of:
     - arcs
 - transitions with complex actions
     - notification
-    - split
+    - create color group (requires `color_group_size` on token)
+    - split (requires `color_group_index` on token)
     - barrier
     - join
     - remove data?
@@ -227,9 +228,13 @@ particular operation inside a nested `parallel_by`.
     {
         "token": {
             "color": 7,
-            "color_group": 2,
-            "parent_color": 0,
-            "parent_color_group": 0
+            "color_group": {
+                "index": 2,
+                "color_begin": 1,
+                "color_end": 14,
+                "parent_color": 0,
+                "parent_color_group_index": 0
+            }
         },
         "response_links": {
             "success": "http://petri/v1/nets/7/places/12/tokens/7",
@@ -252,10 +257,35 @@ e.g. int > 0.
     {
         "token": {
             "color": 0,
-            "color_group": 0,
-            "parent_color": null,
-            "parent_color_group": null
+            "color_group": {
+                "index": 0,
+                "color_begin": 0,
+                "color_end": 1,
+                "parent_color": null,
+                "parent_color_group": null
+            }
         },
         "requested_data": ["split_size"],
         "response_link": "http://petri/v1/nets/7/places/28/tokens/0"
+    }
+
+### Color Group Creation Notification
+Sent to notify the consumer application that a color group has been created.
+This notification is optional.
+
+#### Request
+
+    PUT (user-specified-location)
+    Content-Type: application/json
+    Accepts: application/json
+
+    {
+        "color_group": {
+            "index": 2,
+            "color_begin": 3,
+            "color_end": 14,
+            "parent_color": 0,
+            "parent_color_group": 0
+        },
+        "response_link": "http://petri/v1/nets/7/places/34/tokens/0"
     }
