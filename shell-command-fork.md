@@ -19,13 +19,6 @@ Required parameters:
     - list of strings
 - `environment`
     - hash of string -> string
-- `logging`
-    - hash
-    - define logging parameters
-        - where to go: files, syslog, etc.
-        - whether/how to transform data
-            - to JSON
-            - prepend lines with data (timestamps, etc.)
 - `umask`
 - `user`
     - string
@@ -33,8 +26,14 @@ Required parameters:
 
 Optional parameters:
 
+- `stdin`
+    - string
+    - passed verbatim to the command via standard input
 - `webhooks`
     - hash string -> URL
+- `working_directory`
+    - path
+    - defaults to user's home directory
 
 Sample:
 
@@ -50,25 +49,15 @@ Sample:
         "user": "mburnett",
         "webhooks": {
             "begun": "http://workflow/v1/callbacks/shell-command-fork/begun?execution_identifier=42",
-            "succeeded": "http://workflow/v1/callbacks/shell-command-fork/succeeded?execution_identifier=42",
-            "failed": "http://workflow/v1/callbacks/shell-command-fork/failed?execution_identifier=42",
+            "ended": "http://workflow/v1/callbacks/shell-command-fork/ended?execution_identifier=42",
             "cancelled": "http://workflow/v1/callbacks/shell-command-fork/cancelled?execution_identifier=42"
-            "error": "http://workflow/v1/callbacks/shell-command-fork/error?execution_identifier=42"
-        },
-        "logging": {
-            "stderr": {
-                "type": "file",
-                "path": "/gscmnt/gc2013/info/model_data/build12345/logs/some_job.err"
-            },
-            "stdout": {
-                "type": "file",
-                "path": "/gscmnt/gc2013/info/model_data/build12345/logs/some_job.out"
-            }
+            "error": "http://workflow/v1/callbacks/shell-command-fork/error?execution_identifier=42",
         }
     }
 
 #### Responses
 Success:
+
 - HTTP 201 (Created)
     - immediate
         - set status to scheduled
@@ -80,9 +69,6 @@ Success:
 Errors:
 - HTTP 400 (Bad Request)
     - missing key environment, etc.
-    - logging configuration is invalid
-        - bad path to log file
-        - invalid transformation or format string
     - the first element of the command line is not a valid executable
         - this may only be verifyable later
 
@@ -149,8 +135,7 @@ callbacks should wait until all previous callbacks succeed.
 Callbacks are available for each status update:
 
 - begun
-- succeeded
-- failed
+- ended
 - cancelled
 - error: the service has failed to fulfill its promise to run the job
     - the result backend crashed, and now the status of a job is unknown
@@ -170,4 +155,21 @@ Sample Begun callback:
         "job_id": 1234,
         "host": "some-execution-host",
         "begin": "2014-02-20 11:23:47-6"
+    }
+
+Sample Ended callback:
+
+    PUT (user-specified-url)
+    Content-Type: application/json
+    Accepts: application/json
+
+    {
+        "callback_type": "ended",
+        "job_id": 1234,
+        "host": "some-execution-host",
+        "begin": "2014-02-20 11:23:47-6",
+        "end": "2014-02-20 11:23:57-6",
+        "stdout": "some generated text",
+        "stderr": "",
+        "exit_code": 0
     }
