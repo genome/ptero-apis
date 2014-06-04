@@ -364,16 +364,13 @@ Request:
 Content:
 
     {
-          "name": "Some Exciting Workflow",
-          "id": 1234,
-          "owner": "mburnett",
-          "created": "2014-02-19 08:27:12-6",
-          "begin": "2014-02-19 08:30:42-6",
-          "status": "crashed",
-          "parent_workflow": {
-              "href": "http://workflow/v1/workflows/3"
-          },
-          "errors": []
+        "name": "Some Exciting Workflow",
+        "url": "http://ptero-workflow/v1/reports/workflow-status?workflow-id=1234",
+        "owner": "mburnett",
+        "created": "2014-02-19 08:27:12-6",
+        "updated": "2014-02-19 08:35:42-6",
+        "status": "failed",
+        "errors": []
     }
 
 ## Critical System Facing API
