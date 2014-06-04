@@ -201,92 +201,154 @@ Request:
 Sample abbreviated content:
 
     {
-      "id": 1234,
-      "report": [
-        {
-          "name": "A unique name in this model",
-          "type": "command",
-          "class": "Genome::Model::Build::Command::RnaSeq::Something",
-          "status": "done",
-          "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.2.err",
-          "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.2.out",
-          "executions": [
-            {
-              "type": "shortcut",
-              "method": "fork-shell",
-              "begin": "2014-02-19 08:30:47-6",
-              "end": "2014-02-19 08:32:00-6",
-              "status": "done",
-            }
-          ]
+        "owner": "mburnett",
+        "urls": {
+            "workflow": "http://ptero-workflow/v1/workflows/1234"
         },
-        {
-          "name": "Another unique name",
-          "type": "model",
-          "status": "crashed",
-          "children": [
+        "created": "2014-02-19 08:27:12-6",
+        "updated": "2014-02-19 08:34:00-6",
+        "status": "failing",
+        "statusHistory": [
             {
-              "name": "A unique name in this model",
-              "type": "command",
-              "class": "Genome::Model::Build::Command::RnaSeq::SomethingElse",
-              "status": "crashed",
-              "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.5.err",
-              "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.5.out",
-              "executions": [
-                {
-                  "type": "fork-shell",
-                  "method": "shortcut",
-                  "begin": "2014-02-19 08:30:47-6",
-                  "end": "2014-02-19 08:30:57-6",
-                  "status": "crashed",
-                },
-                {
-                  "type": "lsf-shell",
-                  "method": "execute",
-                  "begin": "2014-02-19 08:31:47-6",
-                  "end": "2014-02-19 08:34:00-6",
-                  "status": "crashed",
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "A sweet, parallel-by operation",
-          "type": "event",
-          "class": "Genome::Model::Event::Build::Some::Thing",
-          "parallel": {
-            "statuses": {
-              "crashed": 1,
-              "done": 22,
-              "running": 1
+                "status": "running",
+                "timestamp": "2014-02-19 08:30:42-6"
             },
-            "crashed-data": [
-              {
-                "status": "done",
-                "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_sweet_parallel_by_operation.4_14.err",
-                "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_sweet_parallel_by_operation.4_14.out",
-                "executions": [
-                  {
-                    "type": "fork-shell",
-                    "method": "shortcut",
-                    "status": "crashed",
-                    "begin": "2014-02-19 08:31:47-6",
-                    "end": "2014-02-19 08:31:47-6",
-                  },
-                  {
-                    "type": "lsf-shell",
-                    "method": "execute",
-                    "status": "crashed",
-                    "begin": "2014-02-19 08:33:47-6",
-                    "end": "2014-02-19 08:34:47-6",
-                  },
+            {
+                "status": "failing",
+                "timestamp": "2014-02-19 08:34:00-6"
+            }
+        ],
+
+        "operations": [
+            {
+                "name": "A unique name in this model",
+                "status": "succeeded",
+                "statusHistory": [
+                    {
+                        "status": "running",
+                        "method": "shortcut",
+                        "timestamp": "2014-02-19 08:30:47-6"
+                    },
+                    {
+                        "status": "succeeded",
+                        "method": "shortcut",
+                        "timestamp": "2014-02-19 08:32:00-6"
+                    }
+                ],
+                "constants": {
+                    "stderrLog": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.err",
+                    "stdoutLog": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.out"
+                }
+            },
+
+            {
+                "name": "Another unique name",
+                "status": "failed",
+                "statusHistory": [
+                    {
+                        "status": "running",
+                        "timestamp": "2014-02-19 08:30:47-6"
+                    },
+                    {
+                        "status": "failed",
+                        "timestamp": "2014-02-19 08:34:00-6"
+                    }
+                ],
+                "operations": [
+                    {
+                        "name": "A unique name in this model",
+                        "constants": {
+                            "stderrLog": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.err",
+                            "stdoutLog": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.out"
+                        },
+                        "status": "failed",
+                        "statusHistory": [
+                            {
+                                "method": "shortcut",
+                                "status": "running",
+                                "timestamp": "2014-02-19 08:30:47-6"
+                            },
+                            {
+                                "method": "shortcut",
+                                "status": "failed",
+                                "timestamp": "2014-02-19 08:30:57-6"
+                            },
+                            {
+                                "method": "execute",
+                                "status": "running",
+                                "timestamp": "2014-02-19 08:31:47-6"
+                            },
+                            {
+                                "method": "execute",
+                                "status": "failed",
+                                "timestamp": "2014-02-19 08:34:00-6"
+                            }
+                        ]
+                    }
                 ]
-              }
-            ]
-          }
-        }
-      ]
+            },
+
+            {
+                "name": "A sweet, parallel-by operation",
+                "status": "failing",
+                "statusHistory": [
+                    {
+                        "status": "running",
+                        "timestamp": "TIMESTAMP OF FIRST OP START"
+                    },
+                    {
+                        "status": "failing",
+                        "timestamp": "2014-02-19 08:34:47"
+                    },
+                ],
+                "constants": {
+                    "stderrLog": {
+                        "template": "file://{{allocation_path}}/logs/a_sweet_parallel_by_operation/{{parallelIndex}}.err",
+                        "allocation_id": 6789
+                    },
+                    "stdoutLog": {
+                        "template": "file://{{allocation_path}}/logs/a_sweet_parallel_by_operation/{{parallelIndex}}.out",
+                        "allocation_id": 6789
+                    },
+                },
+                "parallelStatusCounts": {
+                    "failed": 1,
+                    "succeeded": 22,
+                    "running": 1
+                },
+                "failedParallelSteps": [
+                    {
+                        "metadata": {
+                            "parallelIndex": 7
+                        },
+                        "status": "failed",
+                        "statusHistory": [
+                            {
+                                "method": "shortcut",
+                                "status": "running",
+                                "timestamp": "2014-02-19 08:31:47-6"
+                            },
+                            {
+                                "method": "shortcut",
+                                "status": "failed",
+                                "timestamp": "2014-02-19 08:31:50-6"
+                            },
+                            {
+                                "method": "execute",
+                                "status": "running",
+                                "timestamp": "2014-02-19 08:33:47-6"
+                            },
+                            {
+                                "method": "execute",
+                                "status": "failed",
+                                "timestamp": "2014-02-19 08:34:47-6"
+                            }
+                        ]
+                    }
+                ]
+            }
+
+        ]
     }
 
 <!-- Do we want to hide sub-model details if they are 'new' or 'done'? -->
