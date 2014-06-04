@@ -279,7 +279,7 @@ Sample abbreviated content:
 
 Here's an example used by the client to poll for workflow completion. Errors in
 deferred portions of workflow submission must show up in this query. This set
-of fields can be produced with the \_details shorcut.
+of fields can be produced with the \_details shortcut.
 
 Request:
 
