@@ -13,37 +13,47 @@ Sample body for an N-shaped workflow:
         "workflow": {
             "operations": {
                 "A": {
-                    "type": "perl-ur-command",
-                    "commandClass": "NullCommand",
-                    "resources": {
-                        "execute": {
-                            "limit": {
-                                "virtual_memory": 204800
+                    "methods": [
+                        {
+                            "name": "shortcut",
+                            "submitUrl": "http://ptero-fork/v1/jobs",
+                            "parameters" {
+                                "commandLine": ["genome-ptero-wrapper",
+                                    "command", "shortcut", "NullCommand"]
                             },
-                            "request": {
-                                "min_cores": 4,
-                                "memory": 200,
-                                "temp_space": 5
+                        },
+                        {
+                            "name": "execute",
+                            "submitUrl": "http://ptero-lsf/v1/jobs",
+                            "parameters" {
+                                "commandLine": ["genome-ptero-wrapper",
+                                    "command", "execute", "NullCommand"],
+                                "limit": {
+                                    "virtual_memory": 204800
+                                },
+                                "request": {
+                                    "min_cores": 4,
+                                    "memory": 200,
+                                    "temp_space": 5
+                                },
+                                "reserve": {
+                                    "min_cores": 4,
+                                    "memory": 200,
+                                    "temp_space": 5
+                                }
                             },
-                            "reserve": {
-                                "min_cores": 4,
-                                "memory": 200,
-                                "temp_space": 5
-                            }
                         }
-                    }
+                    ],
                 },
+
                 "B": {
-                    "type": "perl-ur-command",
-                    "commandClass": "NullCommand"
+                    ...
                 },
                 "C": {
-                    "type": "perl-ur-command",
-                    "commandClass": "NullCommand"
+                    ...
                 },
                 "D": {
-                    "type": "perl-ur-command",
-                    "commandClass": "NullCommand"
+                    ...
                 }
             },
 
