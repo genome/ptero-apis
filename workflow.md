@@ -144,6 +144,10 @@ Success:
         - stores top level inputs in the IO backend
         - compiles and submits a net to petri service
             - including initial start token
+    - response body contains the submitted workflow with some metadata
+        - returned urls
+            - for polling workflow status
+            - for "build-view" like report
 
 Errors:
 
