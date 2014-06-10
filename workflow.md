@@ -13,37 +13,47 @@ Sample body for an N-shaped workflow:
         "workflow": {
             "operations": {
                 "A": {
-                    "type": "perl-ur-command",
-                    "commandClass": "NullCommand",
-                    "resources": {
-                        "execute": {
-                            "limit": {
-                                "virtual_memory": 204800
+                    "methods": [
+                        {
+                            "name": "shortcut",
+                            "submitUrl": "http://ptero-fork/v1/jobs",
+                            "parameters" {
+                                "commandLine": ["genome-ptero-wrapper",
+                                    "command", "shortcut", "NullCommand"]
                             },
-                            "request": {
-                                "min_cores": 4,
-                                "memory": 200,
-                                "temp_space": 5
+                        },
+                        {
+                            "name": "execute",
+                            "submitUrl": "http://ptero-lsf/v1/jobs",
+                            "parameters" {
+                                "commandLine": ["genome-ptero-wrapper",
+                                    "command", "execute", "NullCommand"],
+                                "limit": {
+                                    "virtual_memory": 204800
+                                },
+                                "request": {
+                                    "min_cores": 4,
+                                    "memory": 200,
+                                    "temp_space": 5
+                                },
+                                "reserve": {
+                                    "min_cores": 4,
+                                    "memory": 200,
+                                    "temp_space": 5
+                                }
                             },
-                            "reserve": {
-                                "min_cores": 4,
-                                "memory": 200,
-                                "temp_space": 5
-                            }
                         }
-                    }
+                    ],
                 },
+
                 "B": {
-                    "type": "perl-ur-command",
-                    "commandClass": "NullCommand"
+                    ...
                 },
                 "C": {
-                    "type": "perl-ur-command",
-                    "commandClass": "NullCommand"
+                    ...
                 },
                 "D": {
-                    "type": "perl-ur-command",
-                    "commandClass": "NullCommand"
+                    ...
                 }
             },
 
@@ -144,6 +154,10 @@ Success:
         - stores top level inputs in the IO backend
         - compiles and submits a net to petri service
             - including initial start token
+    - response body contains the submitted workflow with some metadata
+        - returned urls
+            - for polling workflow status
+            - for "build-view" like report
 
 Errors:
 
@@ -187,99 +201,161 @@ Request:
 Sample abbreviated content:
 
     {
-      "id": 1234,
-      "report": [
-        {
-          "name": "A unique name in this model",
-          "type": "command",
-          "class": "Genome::Model::Build::Command::RnaSeq::Something",
-          "status": "done",
-          "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.2.err",
-          "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.2.out",
-          "executions": [
-            {
-              "type": "shortcut",
-              "method": "fork-shell",
-              "begin": "2014-02-19 08:30:47-6",
-              "end": "2014-02-19 08:32:00-6",
-              "status": "done",
-            }
-          ]
+        "owner": "mburnett",
+        "urls": {
+            "workflow": "http://ptero-workflow/v1/workflows/1234"
         },
-        {
-          "name": "Another unique name",
-          "type": "model",
-          "status": "crashed",
-          "children": [
+        "created": "2014-02-19 08:27:12-6",
+        "updated": "2014-02-19 08:34:00-6",
+        "status": "failing",
+        "statusHistory": [
             {
-              "name": "A unique name in this model",
-              "type": "command",
-              "class": "Genome::Model::Build::Command::RnaSeq::SomethingElse",
-              "status": "crashed",
-              "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.5.err",
-              "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.5.out",
-              "executions": [
-                {
-                  "type": "fork-shell",
-                  "method": "shortcut",
-                  "begin": "2014-02-19 08:30:47-6",
-                  "end": "2014-02-19 08:30:57-6",
-                  "status": "crashed",
-                },
-                {
-                  "type": "lsf-shell",
-                  "method": "execute",
-                  "begin": "2014-02-19 08:31:47-6",
-                  "end": "2014-02-19 08:34:00-6",
-                  "status": "crashed",
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "A sweet, parallel-by operation",
-          "type": "event",
-          "class": "Genome::Model::Event::Build::Some::Thing",
-          "parallel": {
-            "statuses": {
-              "crashed": 1,
-              "done": 22,
-              "running": 1
+                "status": "running",
+                "timestamp": "2014-02-19 08:30:42-6"
             },
-            "crashed-data": [
-              {
-                "status": "done",
-                "stderr-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_sweet_parallel_by_operation.4_14.err",
-                "stdout-url": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_sweet_parallel_by_operation.4_14.out",
-                "executions": [
-                  {
-                    "type": "fork-shell",
-                    "method": "shortcut",
-                    "status": "crashed",
-                    "begin": "2014-02-19 08:31:47-6",
-                    "end": "2014-02-19 08:31:47-6",
-                  },
-                  {
-                    "type": "lsf-shell",
-                    "method": "execute",
-                    "status": "crashed",
-                    "begin": "2014-02-19 08:33:47-6",
-                    "end": "2014-02-19 08:34:47-6",
-                  },
+            {
+                "status": "failing",
+                "timestamp": "2014-02-19 08:34:00-6"
+            }
+        ],
+
+        "operations": [
+            {
+                "name": "A unique name in this model",
+                "status": "succeeded",
+                "statusHistory": [
+                    {
+                        "status": "running",
+                        "method": "shortcut",
+                        "timestamp": "2014-02-19 08:30:47-6"
+                    },
+                    {
+                        "status": "succeeded",
+                        "method": "shortcut",
+                        "timestamp": "2014-02-19 08:32:00-6"
+                    }
+                ],
+                "constants": {
+                    "stderrLog": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.err",
+                    "stdoutLog": "file:///gscmnt/gc2013/info/model_data/build12345/logs/a_unique_name_in_this_model.out"
+                }
+            },
+
+            {
+                "name": "Another unique name",
+                "status": "failed",
+                "statusHistory": [
+                    {
+                        "status": "running",
+                        "timestamp": "2014-02-19 08:30:47-6"
+                    },
+                    {
+                        "status": "failed",
+                        "timestamp": "2014-02-19 08:34:00-6"
+                    }
+                ],
+                "operations": [
+                    {
+                        "name": "A unique name in this model",
+                        "constants": {
+                            "stderrLog": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.err",
+                            "stdoutLog": "file:///gscmnt/gc2013/info/model_data/build12345/logs/another_unique_name_3/a_unique_name_in_this_model.out"
+                        },
+                        "status": "failed",
+                        "statusHistory": [
+                            {
+                                "method": "shortcut",
+                                "status": "running",
+                                "timestamp": "2014-02-19 08:30:47-6"
+                            },
+                            {
+                                "method": "shortcut",
+                                "status": "failed",
+                                "timestamp": "2014-02-19 08:30:57-6"
+                            },
+                            {
+                                "method": "execute",
+                                "status": "running",
+                                "timestamp": "2014-02-19 08:31:47-6"
+                            },
+                            {
+                                "method": "execute",
+                                "status": "failed",
+                                "timestamp": "2014-02-19 08:34:00-6"
+                            }
+                        ]
+                    }
                 ]
-              }
-            ]
-          }
-        }
-      ]
+            },
+
+            {
+                "name": "A sweet, parallel-by operation",
+                "status": "failing",
+                "statusHistory": [
+                    {
+                        "status": "running",
+                        "timestamp": "TIMESTAMP OF FIRST OP START"
+                    },
+                    {
+                        "status": "failing",
+                        "timestamp": "2014-02-19 08:34:47"
+                    },
+                ],
+                "constants": {
+                    "stderrLog": {
+                        "template": "file://{{allocation_path}}/logs/a_sweet_parallel_by_operation/{{parallelIndex}}.err",
+                        "allocation_id": 6789
+                    },
+                    "stdoutLog": {
+                        "template": "file://{{allocation_path}}/logs/a_sweet_parallel_by_operation/{{parallelIndex}}.out",
+                        "allocation_id": 6789
+                    },
+                },
+                "parallelStatusCounts": {
+                    "failed": 1,
+                    "succeeded": 22,
+                    "running": 1
+                },
+                "failedParallelSteps": [
+                    {
+                        "metadata": {
+                            "parallelIndex": 7
+                        },
+                        "status": "failed",
+                        "statusHistory": [
+                            {
+                                "method": "shortcut",
+                                "status": "running",
+                                "timestamp": "2014-02-19 08:31:47-6"
+                            },
+                            {
+                                "method": "shortcut",
+                                "status": "failed",
+                                "timestamp": "2014-02-19 08:31:50-6"
+                            },
+                            {
+                                "method": "execute",
+                                "status": "running",
+                                "timestamp": "2014-02-19 08:33:47-6"
+                            },
+                            {
+                                "method": "execute",
+                                "status": "failed",
+                                "timestamp": "2014-02-19 08:34:47-6"
+                            }
+                        ]
+                    }
+                ]
+            }
+
+        ]
     }
 
 <!-- Do we want to hide sub-model details if they are 'new' or 'done'? -->
 
 Here's an example used by the client to poll for workflow completion. Errors in
 deferred portions of workflow submission must show up in this query. This set
-of fields can be produced with the \_details shorcut.
+of fields can be produced with the \_details shortcut.
 
 Request:
 
@@ -288,16 +364,13 @@ Request:
 Content:
 
     {
-          "name": "Some Exciting Workflow",
-          "id": 1234,
-          "owner": "mburnett",
-          "created": "2014-02-19 08:27:12-6",
-          "begin": "2014-02-19 08:30:42-6",
-          "status": "crashed",
-          "parent_workflow": {
-              "href": "http://workflow/v1/workflows/3"
-          },
-          "errors": []
+        "name": "Some Exciting Workflow",
+        "url": "http://ptero-workflow/v1/reports/workflow-status?workflow-id=1234",
+        "owner": "mburnett",
+        "created": "2014-02-19 08:27:12-6",
+        "updated": "2014-02-19 08:35:42-6",
+        "status": "failed",
+        "errors": []
     }
 
 ## Critical System Facing API
