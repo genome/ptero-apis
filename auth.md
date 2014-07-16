@@ -217,6 +217,11 @@ Error:
 - HTTP 401 (Unauthenticated)
     - Includes the header `WWW-Authenticate: API-Key`.
 - HTTP 403 (Not Authorized)
+    - possible causes:
+        - token is expired
+        - required scope not met
+        - required user roles not met
+        - invalid token (not just expired)
 
 
 ## Client API
