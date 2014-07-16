@@ -232,7 +232,7 @@ the auth server.
 
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
-id and secret.  Must validate the service is accepting requests.
+id and secret.
 
 ### PUT /clients/(id)
 
