@@ -258,7 +258,7 @@ authorization codes associated with a user.
 
 
 <!-- References -->
-[1]: https://tools.ietf.org/html/rfc6749 The OAuth 2.0 Authorization Framework
-[2]: https://tools.ietf.org/html/rfc6750 The OAuth 2.0 Authorization Framework: Bearer Token Usage
-[3]: https://tools.ietf.org/html/rfc2617 HTTP Authentication: Basic and Digest Access Authentication
-[4]: http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_ADG.html The Linux-PAM Application Developers' Guide
+[1]: https://tools.ietf.org/html/rfc6749 "The OAuth 2.0 Authorization Framework"
+[2]: https://tools.ietf.org/html/rfc6750 "The OAuth 2.0 Authorization Framework: Bearer Token Usage"
+[3]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
+[4]: http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_ADG.html "The Linux-PAM Application Developers' Guide"
