@@ -277,7 +277,6 @@ Success:
 
 Error:
 
-
 - HTTP 400 (Bad Request)
     - possible causes:
         - `access_token` is not associated with the requesting client
