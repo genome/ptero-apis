@@ -215,7 +215,7 @@ Success:
 Error:
 
 - HTTP 401 (Unauthenticated)
-    - Includes the header `WWW-Authenticate: API-Key`.
+    - Includes the header `WWW-Authenticate: Basic`.
 - HTTP 403 (Not Authorized)
     - possible causes:
         - token is expired
