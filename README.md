@@ -12,6 +12,10 @@ Need to specify:
 
 ## Services
 
+## Auth
+This service authenticates users and allows them to authorize services to use
+one another on the users' behalves.
+
 ### Petri
 This service executes Petri nets with a color & color-group extension.
 
