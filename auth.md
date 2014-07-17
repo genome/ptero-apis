@@ -301,6 +301,34 @@ Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
 id and secret.
 
+The request body is a JSON dictionary with the following parameters:
+
+- `allowed_scopes`
+    - List of scopes the client is allowed to request access to.
+- `default_scopes`
+    - List of scopes the client should be granted access to if `scope` is
+      omitted in a request to `/authorization`.
+- `redirect_uri_regex`
+    - Regular expression for validating values of `redirtect_uri`.
+
+#### Responses
+
+Success:
+
+- HTTP 201 (Created)
+    - Respond with the full resource including `client_id` and `client_secret`.
+
+Error:
+
+- HTTP 400 (Bad Request)
+    - possible causes:
+        - Missing or invalid `redirect_uri_regex`.
+        - Missing scope parameters.
+- HTTP 401 (Unauthenticated)
+    - Includes the header `WWW-Authenticate: Basic`.
+- HTTP 403 (Not Authorized)
+    - Invalid `Authorization` header.
+
 ### PUT /clients/(id)
 
 Requires [HTTP Basic authentication][3] of the user.
