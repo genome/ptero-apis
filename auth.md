@@ -200,7 +200,7 @@ The request body is a JSON dictionary with the following parameters:
     - If the `access_token` is not associated with a superset of the scopes in
       this list, then respond with 403 (Not Authorized).
 - `access_token`
-    - the Bearer token that is the subject of the validation query
+    - The Bearer token that is the subject of the validation query.
 - `user_roles`
     - list of strings
     - If the `access_token` is associated with a user that does not have any of
@@ -232,7 +232,7 @@ list for a given `access_token`.
 The request body is a JSON dictionary with the following parameters:
 
 - `access_token`
-    - the Bearer token that is the subject of the query
+    - The Bearer token that is the subject of the query.
 
 #### Responses
 Success:
@@ -241,6 +241,34 @@ Success:
     - Response body is a JSON dictionary with the following parameters:
         - `user_roles`
             - A list of roles associated with the `access_token`.
+
+Error:
+
+- HTTP 401 (Unauthenticated)
+    - Includes the header `WWW-Authenticate: Basic`.
+- HTTP 403 (Not Authorized)
+    - possible causes:
+        - `access_token` is not associated with the requesting client
+        - token is expired
+- HTTP 404 (Not Found)
+    - no such token
+
+### POST /represents
+Allows clients to check whether an access token can "represent" another user.
+Requires [HTTP Basic authentication][3] of the client.  This can be used, for
+example, to determine whether shell command can be run as a particular user.
+
+The request body is a JSON dictionary with the following parameters:
+
+- `access_token`
+    - The Bearer token that is the subject of the query.
+- `represented_user`
+    - The name of the user that is the subject of the query.
+
+Success:
+
+- HTTP 200 (OK)
+    - The `access_token` can represent the user.
 
 Error:
 
