@@ -223,6 +223,36 @@ Error:
         - required user roles not met
         - invalid token (not just expired)
 
+### GET /user-roles
+Responds with the user roles associated with a particular `access_token`.
+Requires [HTTP Basic authentication][3] of the client.  This would be used, for
+example, by the Workflow service to determine what workflows to return in a
+list for a given `access_token`.
+
+The request body is a JSON dictionary with the following parameters:
+
+- `access_token`
+    - the Bearer token that is the subject of the query
+
+#### Responses
+Success:
+
+- HTTP 200 (OK)
+    - Response body is a JSON dictionary with the following parameters:
+        - `user_roles`
+            - A list of roles associated with the `access_token`.
+
+Error:
+
+- HTTP 401 (Unauthenticated)
+    - Includes the header `WWW-Authenticate: Basic`.
+- HTTP 403 (Not Authorized)
+    - possible causes:
+        - `access_token` is not associated with the requesting client
+        - token is expired
+- HTTP 404 (Not Found)
+    - no such token
+
 
 ## Client API
 This section describes API endpoints for registering and modifying clients of
