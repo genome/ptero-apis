@@ -270,6 +270,8 @@ The request body is a JSON dictionary with the following parameters:
 - `represented_user`
     - The name of the user that is the subject of the query.
 
+#### Responses
+
 Success:
 
 - HTTP 200 (OK)
