@@ -198,13 +198,13 @@ The request body is a JSON dictionary with the following parameters:
 - `scopes`
     - list of strings (note that `scope` is a space delimited list)
     - If the `access_token` is not associated with a superset of the scopes in
-      this list, then respond with 403 (Not Authorized).
+      this list, then respond with 400 (Bad Request).
 - `access_token`
     - The Bearer token that is the subject of the validation query.
 - `user_roles`
     - list of strings
     - If the `access_token` is associated with a user that does not have any of
-      the roles in the list, then respond with 403 (Not Authorized).
+      the roles in the list, then respond with 400 (Bad Request).
 
 #### Responses
 
@@ -214,14 +214,17 @@ Success:
 
 Error:
 
-- HTTP 401 (Unauthenticated)
-    - Includes the header `WWW-Authenticate: Basic`.
-- HTTP 403 (Not Authorized)
+- HTTP 400 (Bad Request)
     - possible causes:
         - token is expired
         - required scope not met
         - required user roles not met
         - invalid token (not just expired)
+        - invalid request body
+- HTTP 401 (Unauthenticated)
+    - Includes the header `WWW-Authenticate: Basic`.
+- HTTP 403 (Not Authorized)
+    - Invalid `Authorization` header.
 
 ### GET /user-roles
 Responds with the user roles associated with a particular `access_token`.
@@ -244,14 +247,16 @@ Success:
 
 Error:
 
-- HTTP 401 (Unauthenticated)
-    - Includes the header `WWW-Authenticate: Basic`.
-- HTTP 403 (Not Authorized)
+- HTTP 400 (Bad Request)
     - possible causes:
         - `access_token` is not associated with the requesting client
         - token is expired
-- HTTP 404 (Not Found)
-    - no such token
+        - no such token
+        - invalid request body
+- HTTP 401 (Unauthenticated)
+    - Includes the header `WWW-Authenticate: Basic`.
+- HTTP 403 (Not Authorized)
+    - Invalid `Authorization` header.
 
 ### POST /represents
 Allows clients to check whether an access token can "represent" another user.
@@ -272,14 +277,17 @@ Success:
 
 Error:
 
-- HTTP 401 (Unauthenticated)
-    - Includes the header `WWW-Authenticate: Basic`.
-- HTTP 403 (Not Authorized)
+
+- HTTP 400 (Bad Request)
     - possible causes:
         - `access_token` is not associated with the requesting client
         - token is expired
-- HTTP 404 (Not Found)
-    - no such token
+        - no such token
+        - invalid request body
+- HTTP 401 (Unauthenticated)
+    - Includes the header `WWW-Authenticate: Basic`.
+- HTTP 403 (Not Authorized)
+    - Invalid `Authorization` header.
 
 
 ## Client API
