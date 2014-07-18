@@ -9,6 +9,13 @@ Usage of OAuth 2.0 requires extensive use of TLS, so the auth server and all
 clients should use HTTPS as the only protocol for accessing resources.
 
 
+## Justification
+The auth service provides the following benefits:
+
+- Removes requirement for individual services to authN/authZ users.
+- Encapsulates access requirements of services with each individual service.
+
+
 ## Definitions
 - API key: A unique, randomly-generated id that is created by the Auth Server
   and is used both to identify and to authenticate a user.
