@@ -297,7 +297,7 @@ the auth server.
 
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
-id and secret (if `confidential`).
+`client_id` and `client_secret` (if `confidential`).
 
 Only `confidential` clients are allowed to use endpoints that require
 authentication.
