@@ -14,10 +14,6 @@ specification for additional details not provided in this document.
 Usage of OAuth 2.0 requires extensive use of TLS, so the auth server and all
 clients should use HTTPS as the only protocol for accessing resources.
 
-The auth server only supports confidential clients, so all clients must
-authenticate with the auth server (using [HTTP Basic authentication][3]) when
-making requests.
-
 User data are accessed or verified by the server using [PAM][4].
 
 
@@ -299,15 +295,23 @@ the auth server.
 
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
-id and secret.
+id and secret (if `confidential`).
+
+Only `confidential` clients are allowed to use endpoints that require
+authentication.
 
 The request body is a JSON dictionary with the following parameters:
 
 - `allowed_scopes`
     - List of scopes the client is allowed to request access to.
+- `confidential`
+    - boolean
+    - defaults to true
 - `default_scopes`
     - List of scopes the client should be granted access to if `scope` is
       omitted in a request to `/authorization`.
+- `name`
+    - string
 - `redirect_uri_regex`
     - Regular expression for validating values of `redirtect_uri`.
 
@@ -316,7 +320,8 @@ The request body is a JSON dictionary with the following parameters:
 Success:
 
 - HTTP 201 (Created)
-    - Respond with the full resource including `client_id` and `client_secret`.
+    - Respond with the full resource including `client_id` and, if
+      `confidential` then `client_secret`.
 
 Error:
 
