@@ -14,8 +14,6 @@ specification for additional details not provided in this document.
 Usage of OAuth 2.0 requires extensive use of TLS, so the auth server and all
 clients should use HTTPS as the only protocol for accessing resources.
 
-User data are accessed or verified by the server using [PAM][4].
-
 
 ## Definitions
 
@@ -367,4 +365,3 @@ authorization codes associated with a user.
 [1]: https://tools.ietf.org/html/rfc6749 "The OAuth 2.0 Authorization Framework"
 [2]: https://tools.ietf.org/html/rfc6750 "The OAuth 2.0 Authorization Framework: Bearer Token Usage"
 [3]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
-[4]: http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_ADG.html "The Linux-PAM Application Developers' Guide"
