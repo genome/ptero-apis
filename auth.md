@@ -1,10 +1,4 @@
 # Auth Server API
-
-<!-- Questions/Actions
-- How do we get API keys for users like apipe-tester where we don't know their
-  passwords?
--->
-
 The auth server is responsible both for authenticating users and for deciding
 what users and services may access what content.  It is designed using
 [OAuth 2.0][1], which is widely used across the internet to secure user facing
