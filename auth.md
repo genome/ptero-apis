@@ -16,7 +16,6 @@ clients should use HTTPS as the only protocol for accessing resources.
 
 
 ## Definitions
-
 - API key: A unique, randomly-generated id that is created by the Auth Server
   and is used both to identify and to authenticate a user.
 - user role: A label that represents a subset of the permissions available to a
@@ -27,7 +26,6 @@ Additional important terms are defined in the
 
 
 ## API Keys
-
 A user may only have one active API Key at a time.  API keys may have different
 expiration durations.  The storage and access of the user's current API key is
 up to the SDK.
@@ -40,13 +38,11 @@ where `0123456789abcdef` is an example API key.
 
 
 ## Authentication API
-
 This part of the API is primarily specified by the [OAuth 2.0 RFC][1].  This
 section exists to clarify the necessary endpoints and feature support required
 for PTero.
 
 ### GET /authorization
-
 This is the "Authorization Endpoint" specified in section 3.1 of the
 [OAuth 2.0 RFC][1].  Clients should redirect user agents to this endpoint to
 request access tokens.  The auth server must support the "Authorization Code
@@ -94,7 +90,6 @@ each `authorization_code` should have a short lifetime of at most a few minutes
 and must be usable no more than once.
 
 #### Responses
-
 Success:
 
 - HTTP 302 (Found)
@@ -123,7 +118,6 @@ Error:
     - Includes the header `WWW-Authenticate: Basic`.
 
 ### POST /tokens
-
 This is the "Token Endpoint" specified in section 3.2 of the
 [OAuth 2.0 RFC][1].  Requires [HTTP Basic authentication][3] of the client
 using `client_id` and `client_secret`.  Used by clients to acquire an access
@@ -163,7 +157,6 @@ with parameters described below:
     - ignored if `grant_type` is `authorization_code`
 
 #### Responses
-
 Success:
 
 - HTTP 200 (OK)
@@ -179,13 +172,11 @@ Error:
 
 
 ## Authorization API
-
 This portion of the API is provided to clients for answering questions about
 whether particular `access_token` is to be allowed to perform actions or view
 resources.
 
 ### POST /validate
-
 Requires [HTTP Basic authentication][3] of the client using `client_id` and
 `client_secret`.  Used by clients to query whether a particular `access_token`
 is associated with a particular set of user roles and whether it has a
@@ -205,7 +196,6 @@ The request body is a JSON dictionary with the following parameters:
       the roles in the list, then respond with 400 (Bad Request).
 
 #### Responses
-
 Success:
 
 - HTTP 200 (OK)
@@ -269,7 +259,6 @@ The request body is a JSON dictionary with the following parameters:
     - The name of the user that is the subject of the query.
 
 #### Responses
-
 Success:
 
 - HTTP 200 (OK)
@@ -294,7 +283,6 @@ This section describes API endpoints for registering and modifying clients of
 the auth server.
 
 ### POST /clients
-
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
 `client_id` and `client_secret` (if `confidential`).
@@ -318,7 +306,6 @@ The request body is a JSON dictionary with the following parameters:
     - Regular expression for validating values of `redirtect_uri`.
 
 #### Responses
-
 Success:
 
 - HTTP 201 (Created)
@@ -337,7 +324,6 @@ Error:
     - Invalid `Authorization` header.
 
 ### PUT /clients/(id)
-
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to update or invalidate a client and all
 access tokens and authorization codes associated with it.
@@ -347,14 +333,12 @@ access tokens and authorization codes associated with it.
 This section describes API endpoints for managing user credentials.
 
 ### POST /api-keys
-
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users to generate a new API key for themselves.  Invalidates
 existing API keys, but not the access tokens or authorization codes associated
 with them.
 
 ### PUT /api-keys/(key)
-
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users and administrative users to revoke a key and the access
 tokens and authorization codes associated with it.
@@ -366,7 +350,6 @@ authorization codes associated with a user.
 
 
 ## Resource Server API Considerations
-
 When an entity attempts to access a Protected Resource without a Bearer token,
 the hosting resource server should respond with 401 (Unauthorized) and the
 `WWW-Authenticate` header set.  `scope` may be specified in the header as done
