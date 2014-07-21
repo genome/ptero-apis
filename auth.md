@@ -141,7 +141,7 @@ with parameters described below:
     - required if `grant_type` is `authorization_code`
     - ignored if `grant_type` is `refresh_token`
 - `redirect_uri`
-    - the same `redirect_uri` used in the original request
+    - the same `redirect_uri` used in the original `/authorization` request
     - required if `grant_type` is `authorization_code`
     - ignored if `grant_type` is `refresh_token`
 - `refresh_token`
