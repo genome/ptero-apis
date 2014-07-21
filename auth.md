@@ -178,21 +178,23 @@ view resources.
 
 ### POST /validate
 Requires [HTTP Basic authentication][3] of the resource server.  Used by
-clients to query whether a particular `access_token` is associated with a
-particular set of user roles and whether it has a particular `scope`.
+resource servers to query whether a particular `access_token` is associated
+with a particular set of user roles and whether it has a particular `scope`.
 
 The request body is a JSON dictionary with the following parameters:
 
 - `scopes`
-    - list of strings (note that `scope` is a space delimited list)
-    - If the `access_token` is not associated with a superset of the scopes in
-      this list, then respond with 400 (Bad Request).
+    - list of strings (note that this differs from the space-delimited `scope`)
+    - the `access_token` must be associated with all scopes in this list
+    - required
 - `access_token`
     - The Bearer token that is the subject of the validation query.
+    - required
 - `user_roles`
     - list of strings
-    - If the `access_token` is associated with a user that does not have any of
-      the roles in the list, then respond with 400 (Bad Request).
+    - the user associated with the `access_token` must have one or more of
+      these roles
+    - required
 
 #### Responses
 Success:
