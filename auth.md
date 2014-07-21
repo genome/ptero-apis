@@ -203,19 +203,7 @@ Success:
 
 Error:
 
-- HTTP 400 (Bad Request)
-    - possible causes:
-        - token is expired
-        - required scope not met
-        - required user roles not met
-        - invalid token (not just expired)
-        - invalid request body
-- HTTP 401 (Unauthenticated)
-    - Missing HTTP `Authorization` header as described in [HTTP Basic authentication][3].
-    - Includes the header `WWW-Authenticate: Basic`.
-- HTTP 403 (Not Authorized)
-    - Invalid credentials or malformed `Authorization` header according to
-      [HTTP Basic authentication][3].
+See also [Authorization Error Responses](#authorization_error_responses) below.
 
 ### GET /user-roles
 Responds with the user roles associated with a particular `access_token`.
@@ -236,17 +224,7 @@ Success:
         - `user_roles`
             - A list of roles associated with the `access_token`.
 
-Error:
-
-- HTTP 400 (Bad Request)
-    - possible causes:
-        - token is expired
-        - no such token
-        - invalid request body
-- HTTP 401 (Unauthenticated)
-    - Includes the header `WWW-Authenticate: Basic`.
-- HTTP 403 (Not Authorized)
-    - Invalid `Authorization` header.
+See also [Authorization Error Responses](#authorization_error_responses) below.
 
 ### POST /represents
 Allows resource servers to check whether an access token can "represent"
@@ -267,18 +245,23 @@ Success:
 - HTTP 200 (OK)
     - The `access_token` can represent the user.
 
-Error:
+See also [Authorization Error Responses](#authorization_error_responses) below.
+
+### <a name="authorization_error_responses"></a>Authorization Error Responses
 
 - HTTP 400 (Bad Request)
     - possible causes:
         - token is expired
-        - no such token
+        - required scope not met
+        - required user roles not met
+        - invalid token (not just expired)
         - invalid request body
 - HTTP 401 (Unauthenticated)
+    - Missing HTTP `Authorization` header as described in [HTTP Basic authentication][3].
     - Includes the header `WWW-Authenticate: Basic`.
 - HTTP 403 (Not Authorized)
-    - Invalid `Authorization` header.
-
+    - Invalid credentials or malformed `Authorization` header according to
+      [HTTP Basic authentication][3].
 
 ## Client API
 This section describes API endpoints for registering and modifying clients of
