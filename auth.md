@@ -173,15 +173,14 @@ Error:
 
 
 ## Authorization API
-This portion of the API is provided to clients for answering questions about
-whether particular `access_token` is to be allowed to perform actions or view
-resources.
+This portion of the API is provided to resource servers for answering questions
+about whether particular `access_token` is to be allowed to perform actions or
+view resources.
 
 ### POST /v1/validate
-Requires [HTTP Basic authentication][3] of the client using `client_id` and
-`client_secret`.  Used by clients to query whether a particular `access_token`
-is associated with a particular set of user roles and whether it has a
-particular `scope`.
+Requires [HTTP Basic authentication][3] of the resource server.  Used by
+clients to query whether a particular `access_token` is associated with a
+particular set of user roles and whether it has a particular `scope`.
 
 The request body is a JSON dictionary with the following parameters:
 
@@ -217,9 +216,9 @@ Error:
 
 ### GET /v1/user-roles
 Responds with the user roles associated with a particular `access_token`.
-Requires [HTTP Basic authentication][3] of the client.  This would be used, for
-example, by the Workflow service to determine what workflows to return in a
-list for a given `access_token`.
+Requires [HTTP Basic authentication][3] of the resource server.  This would be
+used, for example, by the Workflow service to determine what workflows to
+return in a list for a given `access_token`.
 
 The request body is a JSON dictionary with the following parameters:
 
@@ -238,7 +237,6 @@ Error:
 
 - HTTP 400 (Bad Request)
     - possible causes:
-        - `access_token` is not associated with the requesting client
         - token is expired
         - no such token
         - invalid request body
@@ -248,9 +246,10 @@ Error:
     - Invalid `Authorization` header.
 
 ### POST /v1/represents
-Allows clients to check whether an access token can "represent" another user.
-Requires [HTTP Basic authentication][3] of the client.  This can be used, for
-example, to determine whether shell command can be run as a particular user.
+Allows resource servers to check whether an access token can "represent"
+another user.  Requires [HTTP Basic authentication][3] of the resource server.
+This can be used, for example, to determine whether shell command can be run as
+a particular user.
 
 The request body is a JSON dictionary with the following parameters:
 
@@ -269,7 +268,6 @@ Error:
 
 - HTTP 400 (Bad Request)
     - possible causes:
-        - `access_token` is not associated with the requesting client
         - token is expired
         - no such token
         - invalid request body
@@ -348,6 +346,13 @@ tokens and authorization codes associated with it.
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to revoke all API keys, access tokens and
 authorization codes associated with a user.
+
+
+## Resource Server API
+
+### POST /v1/resource-servers
+
+### PUT /v1/resource-servers/(id)
 
 
 ## Resource Server API Considerations
