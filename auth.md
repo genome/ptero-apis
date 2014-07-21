@@ -165,7 +165,7 @@ Success:
 Error:
 
 - HTTP 400 (Bad Request)
-    - Contains additional information as specified in section 5.2 [RFC 6749][1].
+    - Contains additional information as specified in section 5.2 [OAuth 2.0 RFC][1].
 - HTTP 401 (Unauthorized)
     - Given when the `Authorization` header is not present.
     - Includes the header `WWW-Authenticate: Basic`
