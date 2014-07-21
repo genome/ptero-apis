@@ -250,7 +250,7 @@ the auth server.
 ### POST /clients
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
-`client_id` and `client_secret` (if `confidential`).
+`client_id` and `client_secret` (if the client is `confidential`).
 
 Only `confidential` clients are allowed to use endpoints that require
 authentication.
@@ -259,16 +259,22 @@ The request body is a JSON dictionary with the following parameters:
 
 - `allowed_scopes`
     - List of scopes the client is allowed to request access to.
+    - required
 - `confidential`
     - boolean
-    - defaults to true
+    - required
 - `default_scopes`
-    - List of scopes the client should be granted access to if `scope` is
+    - JSON list of scopes the client should be granted access to if `scope` is
       omitted in a request to `/authorization`.
+    - may be an empty list
+    - required
 - `name`
     - string
+    - unique
+    - required
 - `redirect_uri_regex`
     - Regular expression for validating values of `redirtect_uri`.
+    - required
 
 #### Responses
 Success:
@@ -283,6 +289,8 @@ Error:
     - possible causes:
         - Missing or invalid `redirect_uri_regex`.
         - Missing scope parameters.
+        - Client `name` is not unique
+        - `default_scopes` includes scopes that are not in `allowed_scopes`
 - HTTP 401 (Unauthenticated)
     - Includes the header `WWW-Authenticate: Basic`.
 - HTTP 403 (Not Authorized)
