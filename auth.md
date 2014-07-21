@@ -13,7 +13,7 @@ clients should use HTTPS as the only protocol for accessing resources.
 The auth service provides the following benefits:
 
 - Removes requirement for individual services to authenticate (authN) and authorize (authZ) users.
-- Encapsulates access requirements of services with each individual service.
+- Encapsulates security needs of services. For example, workflow does not need to concern itself with the security model for shell-command.
 
 
 ## Definitions
