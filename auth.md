@@ -226,27 +226,6 @@ Success:
 
 See also [Authorization Error Responses](#authorization_error_responses) below.
 
-### POST /represents
-Allows resource servers to check whether an access token can "represent"
-another user.  Requires [HTTP Basic authentication][3] of the resource server.
-This can be used, for example, to determine whether shell command can be run as
-a particular user.
-
-The request body is a JSON dictionary with the following parameters:
-
-- `access_token`
-    - The Bearer token that is the subject of the query.
-- `represented_user`
-    - The name of the user that is the subject of the query.
-
-#### Responses
-Success:
-
-- HTTP 200 (OK)
-    - The `access_token` can represent the user.
-
-See also [Authorization Error Responses](#authorization_error_responses) below.
-
 ### <a name="authorization_error_responses"></a>Authorization Error Responses
 
 - HTTP 400 (Bad Request)
@@ -262,6 +241,7 @@ See also [Authorization Error Responses](#authorization_error_responses) below.
 - HTTP 403 (Not Authorized)
     - Invalid credentials or malformed `Authorization` header according to
       [HTTP Basic authentication][3].
+
 
 ## Client API
 This section describes API endpoints for registering and modifying clients of
