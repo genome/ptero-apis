@@ -217,7 +217,7 @@ Error:
     - Invalid credentials or malformed `Authorization` header according to
       [HTTP Basic authentication][3].
 
-### GET /v1/user-roles
+### GET /user-roles
 Responds with the user roles associated with a particular `access_token`.
 Requires [HTTP Basic authentication][3] of the resource server.  This would be
 used, for example, by the Workflow service to determine what workflows to
@@ -248,7 +248,7 @@ Error:
 - HTTP 403 (Not Authorized)
     - Invalid `Authorization` header.
 
-### POST /v1/represents
+### POST /represents
 Allows resource servers to check whether an access token can "represent"
 another user.  Requires [HTTP Basic authentication][3] of the resource server.
 This can be used, for example, to determine whether shell command can be run as
@@ -284,7 +284,7 @@ Error:
 This section describes API endpoints for registering and modifying clients of
 the auth server.
 
-### POST /v1/clients
+### POST /clients
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
 `client_id` and `client_secret` (if `confidential`).
@@ -325,7 +325,7 @@ Error:
 - HTTP 403 (Not Authorized)
     - Invalid `Authorization` header.
 
-### PUT /v1/clients/(id)
+### PUT /clients/(id)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to update or invalidate a client and all
 access tokens and authorization codes associated with it.
@@ -334,18 +334,18 @@ access tokens and authorization codes associated with it.
 ## User API
 This section describes API endpoints for managing user credentials.
 
-### POST /v1/api-keys
+### POST /api-keys
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users to generate a new API key for themselves.  Invalidates
 existing API keys, but not the access tokens or authorization codes associated
 with them.
 
-### PUT /v1/api-keys/(key)
+### PUT /api-keys/(key)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users and administrative users to revoke a key and the access
 tokens and authorization codes associated with it.
 
-### PUT /v1/users/(id)
+### PUT /users/(id)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to revoke all API keys, access tokens and
 authorization codes associated with a user.
@@ -353,9 +353,9 @@ authorization codes associated with a user.
 
 ## Resource Server API
 
-### POST /v1/resource-servers
+### POST /resource-servers
 
-### PUT /v1/resource-servers/(id)
+### PUT /resource-servers/(id)
 
 
 ## Resource Server API Considerations
