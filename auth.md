@@ -59,7 +59,7 @@ Query string parameters:
 - `redirect_uri`
     - uri
     - must be a valid `redirect_uri` for the client associated with `client_id`
-    - required
+    - required for "Authorization Code Grant"; optional for "Implicit Grant"
 - `response_type`
     - must be either:  `code`, `token`
     - required
