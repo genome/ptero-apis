@@ -176,7 +176,7 @@ This portion of the API is provided to resource servers for answering questions
 about whether particular `access_token` is to be allowed to perform actions or
 view resources.
 
-### POST /v1/validate
+### POST /validate
 Requires [HTTP Basic authentication][3] of the resource server.  Used by
 clients to query whether a particular `access_token` is associated with a
 particular set of user roles and whether it has a particular `scope`.
