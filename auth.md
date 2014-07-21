@@ -12,7 +12,7 @@ clients should use HTTPS as the only protocol for accessing resources.
 ## Justification
 The auth service provides the following benefits:
 
-- Removes requirement for individual services to authN/authZ users.
+- Removes requirement for individual services to authenticate (authN) and authorize (authZ) users.
 - Encapsulates access requirements of services with each individual service.
 
 
