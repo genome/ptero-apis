@@ -201,8 +201,6 @@ Success:
 
 - HTTP 200 (OK)
 
-Error:
-
 See also [Authorization Error Responses](#authorization_error_responses) below.
 
 ### GET /user-roles
