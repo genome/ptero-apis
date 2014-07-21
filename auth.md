@@ -50,10 +50,6 @@ request access tokens.  The auth server must support the "Authorization Code
 Grant" and "Implicit Grant" as specified in section 4 of the
 [OAuth 2.0 RFC][1].
 
-As an optimization, the auth server should check for the existence of the
-`Authorization` header before performing any potentially time-consuming
-actions, such as querying the database to verify the `client_id`.
-
 Query string parameters:
 
 - `client_id`
