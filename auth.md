@@ -211,9 +211,11 @@ Error:
         - invalid token (not just expired)
         - invalid request body
 - HTTP 401 (Unauthenticated)
+    - Missing HTTP `Authorization` header as described in [HTTP Basic authentication][3].
     - Includes the header `WWW-Authenticate: Basic`.
 - HTTP 403 (Not Authorized)
-    - Invalid `Authorization` header.
+    - Invalid credentials or malformed `Authorization` header according to
+      [HTTP Basic authentication][3].
 
 ### GET /v1/user-roles
 Responds with the user roles associated with a particular `access_token`.
