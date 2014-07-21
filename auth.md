@@ -177,7 +177,7 @@ This portion of the API is provided to clients for answering questions about
 whether particular `access_token` is to be allowed to perform actions or view
 resources.
 
-### POST /validate
+### POST /v1/validate
 Requires [HTTP Basic authentication][3] of the client using `client_id` and
 `client_secret`.  Used by clients to query whether a particular `access_token`
 is associated with a particular set of user roles and whether it has a
@@ -215,7 +215,7 @@ Error:
 - HTTP 403 (Not Authorized)
     - Invalid `Authorization` header.
 
-### GET /user-roles
+### GET /v1/user-roles
 Responds with the user roles associated with a particular `access_token`.
 Requires [HTTP Basic authentication][3] of the client.  This would be used, for
 example, by the Workflow service to determine what workflows to return in a
@@ -247,7 +247,7 @@ Error:
 - HTTP 403 (Not Authorized)
     - Invalid `Authorization` header.
 
-### POST /represents
+### POST /v1/represents
 Allows clients to check whether an access token can "represent" another user.
 Requires [HTTP Basic authentication][3] of the client.  This can be used, for
 example, to determine whether shell command can be run as a particular user.
@@ -283,7 +283,7 @@ Error:
 This section describes API endpoints for registering and modifying clients of
 the auth server.
 
-### POST /clients
+### POST /v1/clients
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
 `client_id` and `client_secret` (if `confidential`).
@@ -324,7 +324,7 @@ Error:
 - HTTP 403 (Not Authorized)
     - Invalid `Authorization` header.
 
-### PUT /clients/(id)
+### PUT /v1/clients/(id)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to update or invalidate a client and all
 access tokens and authorization codes associated with it.
@@ -333,18 +333,18 @@ access tokens and authorization codes associated with it.
 ## User API
 This section describes API endpoints for managing user credentials.
 
-### POST /api-keys
+### POST /v1/api-keys
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users to generate a new API key for themselves.  Invalidates
 existing API keys, but not the access tokens or authorization codes associated
 with them.
 
-### PUT /api-keys/(key)
+### PUT /v1/api-keys/(key)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users and administrative users to revoke a key and the access
 tokens and authorization codes associated with it.
 
-### PUT /users/(id)
+### PUT /v1/users/(id)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to revoke all API keys, access tokens and
 authorization codes associated with a user.
