@@ -68,7 +68,7 @@ Query string parameters:
       [cross-site scripting attacks](
       https://en.wikipedia.org/wiki/Cross-site_scripting)
     - recommended by the [OAuth 2.0 RFC][1]
-    - required 
+    - required
 - `scope`
     - string (space delimited list)
     - optional
