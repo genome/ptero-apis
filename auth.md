@@ -127,7 +127,7 @@ This endpoint must support `access_token` creation based on an
 
 The server must support getting an `access_token` based on a `refresh_token`
 with reduced `scope`.  Creating an `access_token` with reduced `scope` should
-not invalidate other any other `access_token` with a different `scope`.
+not invalidate any other `access_token` with a different `scope`.
 
 The request must be `Content-Type: application/x-www-form-urlencoded`,
 with parameters described below:
