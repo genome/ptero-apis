@@ -320,27 +320,6 @@ Used directly by administrative users to revoke all API keys, access tokens and
 authorization codes associated with a user.
 
 
-## Resource Server API
-
-### POST /resource-servers
-
-### PUT /resource-servers/(id)
-
-
-## Resource Server API Considerations
-When an entity attempts to access a Protected Resource without a Bearer token,
-the hosting resource server should respond with 401 (Unauthorized) and the
-`WWW-Authenticate` header set.  `scope` may be specified in the header as done
-in the below example:
-
-    HTTP/1.1 401 (Unauthorized)
-    Cache-Control: no-store
-    Pragma: no-cache
-    Location: https://resource-server.edu/protected/resource
-    WWW-Authenticate: Bearer realm="resource-server",
-                             scope="protected resource scopes"
-
-
 <!-- References -->
 [1]: https://tools.ietf.org/html/rfc6749 "The OAuth 2.0 Authorization Framework"
 [2]: https://tools.ietf.org/html/rfc6750 "The OAuth 2.0 Authorization Framework: Bearer Token Usage"
