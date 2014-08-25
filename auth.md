@@ -37,6 +37,44 @@ API keys should be transmitted in the `Authorization` header of requests:
 
 where `0123456789abcdef` is an example API key.
 
+## ID Tokens
+
+ID Tokens are defined in the [OpenID Connect Core 1.0][4] specification.  ID
+Tokens are supported in this specificatino with the following extensions and
+limitations:
+
+The `aud` claim must be a list of one or more values determined from the
+requested scopes.  The `at_hash` claim is always included.
+
+Additional collision-resistant claims in the UUID Version 5 namespace, 
+`66deca4c-4e8a-44ce-a617-3d37bc0bcfaa`.  These additional claims may be
+required depending on the audiences included in the audience list.  The
+additional claims are defined as:
+- `posix` (`d9294df3-f60f-504c-aabf-9f8af93cc008`)
+    -  Dictionary containing
+        - `username`
+        - `uid` integer
+        - `gid` integer
+        - `groups` list of integers
+- `roles` (`b15901ac-6238-5e23-8fc7-02f4d26053e6`)
+    -  List of role names
+
+
+Sample additional claims from an OpenID Connect `id_token`:
+
+    "d9294df3-f60f-504c-aabf-9f8af93cc008": {
+       "username": "ltorvalds",
+       "uid": 10001,
+       "gid": 10001,
+       "groups": [13, 24],
+    },
+
+    "b15901ac-6238-5e23-8fc7-02f4d26053e6": ["foo", "bar"]
+
+The `id_token` should be passed to services in the `Identity` header, as in this example:
+
+    Identity: JWT eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
+
 
 ## Authentication API
 This part of the API is primarily specified by the [OAuth 2.0 RFC][1].  This
@@ -162,3 +200,4 @@ authorization codes associated with a user.
 [1]: https://tools.ietf.org/html/rfc6749 "The OAuth 2.0 Authorization Framework"
 [2]: https://tools.ietf.org/html/rfc6750 "The OAuth 2.0 Authorization Framework: Bearer Token Usage"
 [3]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
+[4]: http://openid.net/specs/openid-connect-core-1_0.html "OpenID Connect Core 1.0"
