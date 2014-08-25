@@ -115,6 +115,8 @@ Error:
     - Includes the header `WWW-Authenticate: API-Key`.
     - Includes the header `WWW-Authenticate: Basic`.
 
+If an ID Token is returned by this endpoint, the ID Token must be encrypted.
+
 ### POST /tokens
 This is the "Token Endpoint" specified in section 3.2 of the
 [OAuth 2.0 RFC][1].  Requires [HTTP Basic authentication][3] of the client
@@ -129,12 +131,10 @@ The server must support getting an `access_token` based on a `refresh_token`
 with reduced `scope`.  Creating an `access_token` with reduced `scope` should
 not invalidate any other `access_token` with a different `scope`.
 
-The request `Content-Type` must be `application/x-www-form-urlencoded`.  The
-parameter `grant_type` is required in the request and its value must be either
-`authorization_code` or `refresh_token`.
+The response will contain ID Token when `OpenID` is requested `scope` value, as
+per the OpenID Connect standard.
 
-The response will contain an OpenID Connect ID Token when `OpenID` is a
-requested `scope` value.
+If an ID Token is returned by this endpoint, the ID Token must be signed.
 
 ## Client API
 This section describes API endpoints for registering and modifying clients of
