@@ -126,9 +126,9 @@ This section describes API endpoints for registering and modifying clients of
 the auth server.
 
 ### POST /v1/clients
-Requires [HTTP Basic authentication][3] of the user.
-Used directly by administrative users to register a new client, generating its
-`client_id` and `client_secret` (if the client is `confidential`).
+Requires API key authentication of an administrative user.  Used directly by
+administrative users to register a new client, generating its `client_id` and
+`client_secret` (if the client is `confidential`).
 
 Only `confidential` clients are allowed to use endpoints that require
 authentication.
@@ -188,29 +188,29 @@ Error:
     - Invalid `Authorization` header.
 
 ### PATCH /v1/clients/(id)
-Requires [HTTP Basic authentication][3] of the user.
-Used directly by administrative users to update or invalidate a client and all
-access tokens and authorization codes associated with it.
+Requires API key authentication of an administrative user.  Used directly by
+administrative users to update or invalidate a client and all access tokens and
+authorization codes associated with it.
 
 
 ## User API
 This section describes API endpoints for managing user credentials.
 
 ### POST /v1/api-keys
-Requires [HTTP Basic authentication][3] of the user.
-Used directly by users to generate a new API key for themselves.  Invalidates
-existing API keys, but not the access tokens or authorization codes associated
-with them.
+Requires [HTTP Basic authentication][3] of the user.  Used directly by users to
+generate a new API key for themselves.  Invalidates existing API keys, but not
+the access tokens or authorization codes associated with them.
 
 ### PATCH /v1/api-keys/(key)
-Requires [HTTP Basic authentication][3] of the user.
-Used directly by users and administrative users to revoke a key and the access
-tokens and authorization codes associated with it.
+Requires [HTTP Basic authentication][3] of the user to whom the API Key
+belongs, or API key authentication of an administrative user.  Used directly by
+users and administrative users to revoke a key and the access tokens and
+authorization codes associated with it.
 
 ### PATCH /v1/users/(id)
-Requires [HTTP Basic authentication][3] of the user.
-Used directly by administrative users to revoke all API keys, access tokens and
-authorization codes associated with a user.
+Requires API key authentication of an administrative user.  Used directly by
+administrative users to revoke all API keys, access tokens and authorization
+codes associated with a user.
 
 
 <!-- References -->
