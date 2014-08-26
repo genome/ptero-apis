@@ -174,7 +174,7 @@ Error:
 - HTTP 403 (Not Authorized)
     - Invalid `Authorization` header.
 
-### PUT /clients/(id)
+### PATCH /clients/(id)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to update or invalidate a client and all
 access tokens and authorization codes associated with it.
@@ -189,12 +189,12 @@ Used directly by users to generate a new API key for themselves.  Invalidates
 existing API keys, but not the access tokens or authorization codes associated
 with them.
 
-### PUT /api-keys/(key)
+### PATCH /api-keys/(key)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users and administrative users to revoke a key and the access
 tokens and authorization codes associated with it.
 
-### PUT /users/(id)
+### PATCH /users/(id)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to revoke all API keys, access tokens and
 authorization codes associated with a user.
