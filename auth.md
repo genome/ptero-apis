@@ -137,22 +137,35 @@ The request body is a JSON dictionary with the following parameters:
 
 - `allowed_scopes`
     - List of scopes the client is allowed to request access to.
-    - required
-- `confidential`
-    - boolean
-    - required
+    - Required
+- `type`
+    - String
+    - Required
+    - Allowed values: `confidential`, `public`
 - `default_scopes`
     - JSON list of scopes the client should be granted access to if `scope` is
       omitted in a request to `/authorization`.
-    - may be an empty list
-    - required
+    - May be an empty list
+    - Required
 - `name`
-    - string
-    - unique
-    - required
+    - String
+    - Unique
+    - Required
 - `redirect_uri_regex`
     - Regular expression for validating values of `redirtect_uri`.
-    - required
+    - Required
+- `public_key`
+    - Required if `type` is `confidential`
+    - Forbidden if `type` is `public`
+    - Dictionary containing
+        - `kid`
+        - `key` the serialized key
+        - `alg` the preferred JWE alg to use for encryption
+        - `enc` the preferred JWE enc to use for encryption
+- `audience_for`
+    - List of scopes for which the client should be added to `aud` in generated
+      ID Tokens.
+    - Optional
 
 #### Responses
 Success:
