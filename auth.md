@@ -12,8 +12,10 @@ clients should use HTTPS as the only protocol for accessing resources.
 ## Justification
 The auth service provides the following benefits:
 
-- Removes requirement for individual services to authenticate (authN) and authorize (authZ) users.
-- Encapsulates security needs of services. For example, workflow does not need to concern itself with the security model for shell-command.
+- Removes requirement for individual services to authenticate (authN) and
+  authorize (authZ) users.
+- Encapsulates security needs of services. For example, workflow does not need
+  to concern itself with the security model for shell-command.
 
 
 ## Definitions
@@ -71,7 +73,8 @@ Sample additional claims from an OpenID Connect `id_token`:
 
     "b15901ac-6238-5e23-8fc7-02f4d26053e6": ["foo", "bar"]
 
-The `id_token` should be passed to services in the `Identity` header, as in this example:
+The `id_token` should be passed to services in the `Identity` header, as in
+this example:
 
     Identity: JWT eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
 
@@ -116,6 +119,7 @@ The response will contain ID Token when `OpenID` is requested `scope` value, as
 per the OpenID Connect standard.
 
 If an ID Token is returned by this endpoint, the ID Token must be signed.
+
 
 ## Client API
 This section describes API endpoints for registering and modifying clients of
