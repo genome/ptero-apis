@@ -84,7 +84,7 @@ This part of the API is primarily specified by the [OAuth 2.0 RFC][1].  This
 section exists to clarify the necessary endpoints and feature support required
 for PTero.
 
-### GET /authorization
+### GET /v1/authorization
 This is the "Authorization Endpoint" specified in section 3.1 of the
 [OAuth 2.0 RFC][1].  Clients should redirect user agents to this endpoint to
 request access tokens.
@@ -101,7 +101,7 @@ but the API-Key is expired or otherwise invalid, the server must respond with
 
 If an ID Token is returned by this endpoint, the ID Token must be encrypted.
 
-### POST /tokens
+### POST /v1/tokens
 This is the "Token Endpoint" specified in section 3.2 of the
 [OAuth 2.0 RFC][1].  Requires [HTTP Basic authentication][3] of the client
 using `client_id` and `client_secret`.  Used by clients to acquire an access
@@ -125,7 +125,7 @@ If an ID Token is returned by this endpoint, the ID Token must be signed.
 This section describes API endpoints for registering and modifying clients of
 the auth server.
 
-### POST /clients
+### POST /v1/clients
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to register a new client, generating its
 `client_id` and `client_secret` (if the client is `confidential`).
@@ -174,7 +174,7 @@ Error:
 - HTTP 403 (Not Authorized)
     - Invalid `Authorization` header.
 
-### PATCH /clients/(id)
+### PATCH /v1/clients/(id)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to update or invalidate a client and all
 access tokens and authorization codes associated with it.
@@ -183,18 +183,18 @@ access tokens and authorization codes associated with it.
 ## User API
 This section describes API endpoints for managing user credentials.
 
-### POST /api-keys
+### POST /v1/api-keys
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users to generate a new API key for themselves.  Invalidates
 existing API keys, but not the access tokens or authorization codes associated
 with them.
 
-### PATCH /api-keys/(key)
+### PATCH /v1/api-keys/(key)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by users and administrative users to revoke a key and the access
 tokens and authorization codes associated with it.
 
-### PATCH /users/(id)
+### PATCH /v1/users/(id)
 Requires [HTTP Basic authentication][3] of the user.
 Used directly by administrative users to revoke all API keys, access tokens and
 authorization codes associated with a user.
