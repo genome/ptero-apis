@@ -1,5 +1,12 @@
 # Callback Structure
 
+- listening services will specify the URI for any callbacks a server might make
+- callbacks must be PUT requests
+- no particular headers are required in callback requests
+- callback request bodies must be signed JWTs
+- services providing callbacks must register their public keys with the auth
+  server
+
 ## Use Cases
 - Workflow service creates tokens in Petri nets
     - data embedded in url
