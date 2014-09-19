@@ -16,7 +16,7 @@ Sample body for an N-shaped workflow:
                     "methods": [
                         {
                             "name": "shortcut",
-                            "submitUrl": "http://ptero-fork/v1/jobs",
+                            "submit_url": "http://ptero-fork/v1/jobs",
                             "parameters" {
                                 "commandLine": ["genome-ptero-wrapper",
                                     "command", "shortcut", "NullCommand"]
@@ -24,7 +24,7 @@ Sample body for an N-shaped workflow:
                         },
                         {
                             "name": "execute",
-                            "submitUrl": "http://ptero-lsf/v1/jobs",
+                            "submit_url": "http://ptero-lsf/v1/jobs",
                             "parameters" {
                                 "commandLine": ["genome-ptero-wrapper",
                                     "command", "execute", "NullCommand"],
