@@ -11,7 +11,7 @@ Sample body for an N-shaped workflow:
 
     {
         "workflow": {
-            "operations": {
+            "nodes": {
                 "A": {
                     "methods": [
                         {
@@ -219,7 +219,7 @@ Sample abbreviated content:
             }
         ],
 
-        "operations": [
+        "nodes": [
             {
                 "name": "A unique name in this model",
                 "status": "succeeded",
@@ -254,7 +254,7 @@ Sample abbreviated content:
                         "timestamp": "2014-02-19 08:34:00-6"
                     }
                 ],
-                "operations": [
+                "nodes": [
                     {
                         "name": "A unique name in this model",
                         "constants": {
