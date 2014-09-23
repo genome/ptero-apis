@@ -57,7 +57,7 @@ Sample body for an N-shaped workflow:
                 }
             },
 
-            "links": [
+            "edges": [
                 {
                     "source": "input connector",
                     "destination": "A",
@@ -164,7 +164,7 @@ Errors:
 - HTTP 400 (Bad Request)
     - The workflow cannot be validated.
         - Needed inputs not specified.
-        - Invalid link.
+        - Invalid edge.
         - Invalid operation names: 'input connector' and 'output connector' are
           reserved
     - The environment variables are not complete enough (e.g. no user or PWD)
@@ -174,7 +174,7 @@ workflow status as "error".
 
 ### GET /v1/workflows/(id)
 Fetches the data for a given workflow.  This should include the original data
-from the POST, plus additional fields like `status`, timestamps, and links to
+from the POST, plus additional fields like `status`, timestamps, and edges to
 related data like `executions` and `reports`.
 
 #### Responses
