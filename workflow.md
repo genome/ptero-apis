@@ -10,125 +10,123 @@ as a sub-workflow of the operation's workflow.
 Sample body for an N-shaped workflow:
 
     {
-        "workflow": {
-            "nodes": {
-                "A": {
-                    "methods": [
-                        {
-                            "name": "shortcut",
-                            "submit_url": "http://ptero-fork/v1/jobs",
-                            "parameters": {
-                                "commandLine": ["genome-ptero-wrapper",
-                                    "command", "shortcut", "NullCommand"]
-                            },
+        "nodes": {
+            "A": {
+                "methods": [
+                    {
+                        "name": "shortcut",
+                        "submit_url": "http://ptero-fork/v1/jobs",
+                        "parameters": {
+                            "commandLine": ["genome-ptero-wrapper",
+                                "command", "shortcut", "NullCommand"]
                         },
-                        {
-                            "name": "execute",
-                            "submit_url": "http://ptero-lsf/v1/jobs",
-                            "parameters": {
-                                "commandLine": ["genome-ptero-wrapper",
-                                    "command", "execute", "NullCommand"],
-                                "limit": {
-                                    "virtual_memory": 204800
-                                },
-                                "request": {
-                                    "min_cores": 4,
-                                    "memory": 200,
-                                    "temp_space": 5
-                                },
-                                "reserve": {
-                                    "min_cores": 4,
-                                    "memory": 200,
-                                    "temp_space": 5
-                                }
+                    },
+                    {
+                        "name": "execute",
+                        "submit_url": "http://ptero-lsf/v1/jobs",
+                        "parameters": {
+                            "commandLine": ["genome-ptero-wrapper",
+                                "command", "execute", "NullCommand"],
+                            "limit": {
+                                "virtual_memory": 204800
                             },
-                        }
-                    ],
-                },
-
-                "B": {
-                    ...
-                },
-                "C": {
-                    ...
-                },
-                "D": {
-                    ...
-                }
+                            "request": {
+                                "min_cores": 4,
+                                "memory": 200,
+                                "temp_space": 5
+                            },
+                            "reserve": {
+                                "min_cores": 4,
+                                "memory": 200,
+                                "temp_space": 5
+                            }
+                        },
+                    }
+                ],
             },
 
-            "links": [
-                {
-                    "source": "input connector",
-                    "destination": "A",
-                    "source_property": "in_a",
-                    "destination_property": "param",
-                },
-                {
-                    "source": "input connector",
-                    "destination": "B",
-                    "source_property": "in_b",
-                    "destination_property": "param",
-                },
-                {
-                    "source": "input connector",
-                    "destination": "C",
-                    "source_property": "in_c",
-                    "destination_property": "param",
-                },
-                {
-                    "source": "input connector",
-                    "destination": "D",
-                    "source_property": "in_d",
-                    "destination_property": "param",
-                },
-
-                {
-                    "source": "A",
-                    "destination": "output connector",
-                    "source_property": "result",
-                    "destination_property": "out_a",
-                },
-                {
-                    "source": "B",
-                    "destination": "output connector",
-                    "source_property": "result",
-                    "destination_property": "out_b",
-                },
-                {
-                    "source": "C",
-                    "destination": "output connector",
-                    "source_property": "result",
-                    "destination_property": "out_c",
-                },
-                {
-                    "source": "D",
-                    "destination": "output connector",
-                    "source_property": "result",
-                    "destination_property": "out_d",
-                },
-
-                {
-                    "source": "A",
-                    "destination": "C",
-                    "source_property": "result",
-                    "destination_property": "res1",
-                },
-                {
-                    "source": "A",
-                    "destination": "D",
-                    "source_property": "result",
-                    "destination_property": "res1",
-                },
-                {
-                    "source": "B",
-                    "destination": "D",
-                    "source_property": "result",
-                    "destination_property": "res2",
-                }
-
-            ]
+            "B": {
+                ...
+            },
+            "C": {
+                ...
+            },
+            "D": {
+                ...
+            }
         },
+
+        "links": [
+            {
+                "source": "input connector",
+                "destination": "A",
+                "source_property": "in_a",
+                "destination_property": "param",
+            },
+            {
+                "source": "input connector",
+                "destination": "B",
+                "source_property": "in_b",
+                "destination_property": "param",
+            },
+            {
+                "source": "input connector",
+                "destination": "C",
+                "source_property": "in_c",
+                "destination_property": "param",
+            },
+            {
+                "source": "input connector",
+                "destination": "D",
+                "source_property": "in_d",
+                "destination_property": "param",
+            },
+
+            {
+                "source": "A",
+                "destination": "output connector",
+                "source_property": "result",
+                "destination_property": "out_a",
+            },
+            {
+                "source": "B",
+                "destination": "output connector",
+                "source_property": "result",
+                "destination_property": "out_b",
+            },
+            {
+                "source": "C",
+                "destination": "output connector",
+                "source_property": "result",
+                "destination_property": "out_c",
+            },
+            {
+                "source": "D",
+                "destination": "output connector",
+                "source_property": "result",
+                "destination_property": "out_d",
+            },
+
+            {
+                "source": "A",
+                "destination": "C",
+                "source_property": "result",
+                "destination_property": "res1",
+            },
+            {
+                "source": "A",
+                "destination": "D",
+                "source_property": "result",
+                "destination_property": "res1",
+            },
+            {
+                "source": "B",
+                "destination": "D",
+                "source_property": "result",
+                "destination_property": "res2",
+            }
+
+        ]
 
         "inputs": {
             "in_a": "one",
