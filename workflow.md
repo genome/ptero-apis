@@ -3,132 +3,130 @@
 ## Critical User Facing API
 
 ### POST /v1/workflows or /v1/executions/(execution-id)/workflows
-Submits a new workflow.  If posted to the operations URL, creates the workflow
-as a sub-workflow of the operation's workflow.
+Submits a new workflow.  If posted to the node URL, creates the workflow
+as a sub-workflow of that node's workflow.
 
 #### Request Body
 Sample body for an N-shaped workflow:
 
     {
-        "workflow": {
-            "nodes": {
-                "A": {
-                    "methods": [
-                        {
-                            "name": "shortcut",
-                            "submitUrl": "http://ptero-fork/v1/jobs",
-                            "parameters": {
-                                "commandLine": ["genome-ptero-wrapper",
-                                    "command", "shortcut", "NullCommand"]
-                            },
+        "nodes": {
+            "A": {
+                "methods": [
+                    {
+                        "name": "shortcut",
+                        "submitUrl": "http://ptero-fork/v1/jobs",
+                        "parameters": {
+                            "commandLine": ["genome-ptero-wrapper",
+                                "command", "shortcut", "NullCommand"]
                         },
-                        {
-                            "name": "execute",
-                            "submitUrl": "http://ptero-lsf/v1/jobs",
-                            "parameters": {
-                                "commandLine": ["genome-ptero-wrapper",
-                                    "command", "execute", "NullCommand"],
-                                "limit": {
-                                    "virtual_memory": 204800
-                                },
-                                "request": {
-                                    "min_cores": 4,
-                                    "memory": 200,
-                                    "temp_space": 5
-                                },
-                                "reserve": {
-                                    "min_cores": 4,
-                                    "memory": 200,
-                                    "temp_space": 5
-                                }
+                    },
+                    {
+                        "name": "execute",
+                        "submitUrl": "http://ptero-lsf/v1/jobs",
+                        "parameters": {
+                            "commandLine": ["genome-ptero-wrapper",
+                                "command", "execute", "NullCommand"],
+                            "limit": {
+                                "virtual_memory": 204800
                             },
-                        }
-                    ],
-                },
-
-                "B": {
-                    ...
-                },
-                "C": {
-                    ...
-                },
-                "D": {
-                    ...
-                }
+                            "request": {
+                                "min_cores": 4,
+                                "memory": 200,
+                                "temp_space": 5
+                            },
+                            "reserve": {
+                                "min_cores": 4,
+                                "memory": 200,
+                                "temp_space": 5
+                            }
+                        },
+                    }
+                ],
             },
 
-            "edges": [
-                {
-                    "source": "input connector",
-                    "destination": "A",
-                    "sourceProperty": "in_a",
-                    "destinationProperty": "param",
-                },
-                {
-                    "source": "input connector",
-                    "destination": "B",
-                    "sourceProperty": "in_b",
-                    "destinationProperty": "param",
-                },
-                {
-                    "source": "input connector",
-                    "destination": "C",
-                    "sourceProperty": "in_c",
-                    "destinationProperty": "param",
-                },
-                {
-                    "source": "input connector",
-                    "destination": "D",
-                    "sourceProperty": "in_d",
-                    "destinationProperty": "param",
-                },
-
-                {
-                    "source": "A",
-                    "destination": "output connector",
-                    "sourceProperty": "result",
-                    "destinationProperty": "out_a",
-                },
-                {
-                    "source": "B",
-                    "destination": "output connector",
-                    "sourceProperty": "result",
-                    "destinationProperty": "out_b",
-                },
-                {
-                    "source": "C",
-                    "destination": "output connector",
-                    "sourceProperty": "result",
-                    "destinationProperty": "out_c",
-                },
-                {
-                    "source": "D",
-                    "destination": "output connector",
-                    "sourceProperty": "result",
-                    "destinationProperty": "out_d",
-                },
-
-                {
-                    "source": "A",
-                    "destination": "C",
-                    "sourceProperty": "result",
-                    "destinationProperty": "res1",
-                },
-                {
-                    "source": "A",
-                    "destination": "D",
-                    "sourceProperty": "result",
-                    "destinationProperty": "res1",
-                },
-                {
-                    "source": "B",
-                    "destination": "D",
-                    "sourceProperty": "result",
-                    "destinationProperty": "res2",
-                }
-
-            ]
+            "B": {
+                ...
+            },
+            "C": {
+                ...
+            },
+            "D": {
+                ...
+            }
         },
+
+        "edges": [
+            {
+                "source": "input connector",
+                "destination": "A",
+                "sourceProperty": "in_a",
+                "destinationProperty": "param",
+            },
+            {
+                "source": "input connector",
+                "destination": "B",
+                "sourceProperty": "in_b",
+                "destinationProperty": "param",
+            },
+            {
+                "source": "input connector",
+                "destination": "C",
+                "sourceProperty": "in_c",
+                "destinationProperty": "param",
+            },
+            {
+                "source": "input connector",
+                "destination": "D",
+                "sourceProperty": "in_d",
+                "destinationProperty": "param",
+            },
+
+            {
+                "source": "A",
+                "destination": "output connector",
+                "sourceProperty": "result",
+                "destinationProperty": "out_a",
+            },
+            {
+                "source": "B",
+                "destination": "output connector",
+                "sourceProperty": "result",
+                "destinationProperty": "out_b",
+            },
+            {
+                "source": "C",
+                "destination": "output connector",
+                "sourceProperty": "result",
+                "destinationProperty": "out_c",
+            },
+            {
+                "source": "D",
+                "destination": "output connector",
+                "sourceProperty": "result",
+                "destinationProperty": "out_d",
+            },
+
+            {
+                "source": "A",
+                "destination": "C",
+                "sourceProperty": "result",
+                "destinationProperty": "res1",
+            },
+            {
+                "source": "A",
+                "destination": "D",
+                "sourceProperty": "result",
+                "destinationProperty": "res1",
+            },
+            {
+                "source": "B",
+                "destination": "D",
+                "sourceProperty": "result",
+                "destinationProperty": "res2",
+            }
+
+        ],
 
         "inputs": {
             "in_a": "one",
@@ -351,7 +349,7 @@ Sample abbreviated content:
         ]
     }
 
-<!-- Do we want to hide sub-model details if they are 'new' or 'done'? -->
+<!-- Do we want to hide sub-dag details if they are 'new' or 'done'? -->
 
 Here's an example used by the client to poll for workflow completion. Errors in
 deferred portions of workflow submission must show up in this query. This set
@@ -376,9 +374,9 @@ Content:
 ## Critical System Facing API
 
 ### GET /v1/executions/(execution-id)
-Used by wrappers running individual operations to fetch their inputs. The
+Used by wrappers running individual jobs to fetch their inputs. The
 execution id uniquely specifies the entire parallel stack and its
-operation ID.
+node ID.
 
 #### Responses
 Success:
@@ -389,7 +387,7 @@ Errors:
 
 - HTTP 404 (Not Found)
     - invalid `execution-id`
-    - inputs for this operation are not yet available (other status code?)
+    - inputs for this node are not yet available (other status code?)
 
 
 Sample response body:
@@ -399,7 +397,7 @@ Sample response body:
         "inputs": {
             "foo": "bar"
         },
-        "operation": {
+        "node": {
             "type": "perl-ur-command",
             "commandClass": "Some::Command::Class"
         }
@@ -434,9 +432,9 @@ Sample response body:
     }
 
 ### PATCH /v1/executions/(execution-id)
-Used by wrappers running individual operations to save their outputs. The
+Used by wrappers running individual jobs to save their outputs. The
 execution id uniquely specifies the entire parallel stack and its
-operation ID.
+node ID.
 
 #### Request Body
 
@@ -580,14 +578,14 @@ An end point for the `notify` Petri action.
 Defines the top level scope for a workflow based on the color group information
 of the token that was sent in the body.
 
-#### PUT /v1/callbacks/operations/(operation-id)/begin/(method)
+#### PUT /v1/callbacks/nodes/(node-id)/begin/(method)
 An end point for the `notify` Petri action.
 
 This callback is used to notify us to begin either `shortcut` or `execute` for
-a particular operation + scope (token color is specified in the body, which can
+a particular node + scope (token color is specified in the body, which can
 be used to figure out the scope).
 
-#### PUT /v1/callbacks/operations/(operation-id)/data-request?input=foo
+#### PUT /v1/callbacks/nodes/(node-id)/data-request?input=foo
 An end point for the `notify` Petri action.
 
 This callback is used to request the size of a parallel-by operation.
