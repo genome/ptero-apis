@@ -162,7 +162,7 @@ Errors:
 - HTTP 400 (Bad Request)
     - The workflow cannot be validated.
         - Needed inputs not specified.
-        - Invalid link.
+        - Invalid edge.
         - Invalid node names: 'input connector' and 'output connector' are
           reserved
     - The environment variables are not complete enough (e.g. no user or PWD)
@@ -172,8 +172,8 @@ workflow status as "error".
 
 ### GET /v1/workflows/(id)
 Fetches the data for a given workflow.  This should include the original data
-from the POST, plus additional fields like `status`, timestamps, and links to
-related data like `executions` and `reports`.
+from the POST, plus additional fields like `status`, timestamps, and hyperlinks
+to related data like `executions` and `reports`.
 
 #### Responses
 Success:
