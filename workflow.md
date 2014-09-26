@@ -349,7 +349,7 @@ Sample abbreviated content:
         ]
     }
 
-<!-- Do we want to hide sub-model details if they are 'new' or 'done'? -->
+<!-- Do we want to hide sub-dag details if they are 'new' or 'done'? -->
 
 Here's an example used by the client to poll for workflow completion. Errors in
 deferred portions of workflow submission must show up in this query. This set
@@ -374,7 +374,7 @@ Content:
 ## Critical System Facing API
 
 ### GET /v1/executions/(execution-id)
-Used by wrappers running individual operations to fetch their inputs. The
+Used by wrappers running individual jobs to fetch their inputs. The
 execution id uniquely specifies the entire parallel stack and its
 node ID.
 
@@ -432,7 +432,7 @@ Sample response body:
     }
 
 ### PATCH /v1/executions/(execution-id)
-Used by wrappers running individual operations to save their outputs. The
+Used by wrappers running individual jobs to save their outputs. The
 execution id uniquely specifies the entire parallel stack and its
 node ID.
 
