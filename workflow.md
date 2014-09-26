@@ -3,8 +3,8 @@
 ## Critical User Facing API
 
 ### POST /v1/workflows or /v1/executions/(execution-id)/workflows
-Submits a new workflow.  If posted to the operations URL, creates the workflow
-as a sub-workflow of the operation's workflow.
+Submits a new workflow.  If posted to the node URL, creates the workflow
+as a sub-workflow of that node's workflow.
 
 #### Request Body
 Sample body for an N-shaped workflow:
@@ -378,7 +378,7 @@ Content:
 ### GET /v1/executions/(execution-id)
 Used by wrappers running individual operations to fetch their inputs. The
 execution id uniquely specifies the entire parallel stack and its
-operation ID.
+node ID.
 
 #### Responses
 Success:
@@ -389,7 +389,7 @@ Errors:
 
 - HTTP 404 (Not Found)
     - invalid `execution-id`
-    - inputs for this operation are not yet available (other status code?)
+    - inputs for this node are not yet available (other status code?)
 
 
 Sample response body:
@@ -399,7 +399,7 @@ Sample response body:
         "inputs": {
             "foo": "bar"
         },
-        "operation": {
+        "node": {
             "type": "perl-ur-command",
             "commandClass": "Some::Command::Class"
         }
@@ -436,7 +436,7 @@ Sample response body:
 ### PATCH /v1/executions/(execution-id)
 Used by wrappers running individual operations to save their outputs. The
 execution id uniquely specifies the entire parallel stack and its
-operation ID.
+node ID.
 
 #### Request Body
 
@@ -580,14 +580,14 @@ An end point for the `notify` Petri action.
 Defines the top level scope for a workflow based on the color group information
 of the token that was sent in the body.
 
-#### PUT /v1/callbacks/operations/(operation-id)/begin/(method)
+#### PUT /v1/callbacks/nodes/(node-id)/begin/(method)
 An end point for the `notify` Petri action.
 
 This callback is used to notify us to begin either `shortcut` or `execute` for
-a particular operation + scope (token color is specified in the body, which can
+a particular node + scope (token color is specified in the body, which can
 be used to figure out the scope).
 
-#### PUT /v1/callbacks/operations/(operation-id)/data-request?input=foo
+#### PUT /v1/callbacks/nodes/(node-id)/data-request?input=foo
 An end point for the `notify` Petri action.
 
 This callback is used to request the size of a parallel-by operation.
