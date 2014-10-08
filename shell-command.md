@@ -1,4 +1,4 @@
-# Fork Shell Command Service API
+# Shell Command Service API
 
 <!-- Should we support multiple worker queues, so that we could for example
 separate jobs needing network disk from those that do not?
@@ -48,10 +48,10 @@ Sample:
         "umask": "0002",
         "user": "mburnett",
         "webhooks": {
-            "begun": "http://workflow/v1/callbacks/shell-command-fork/begun?execution_identifier=42",
-            "ended": "http://workflow/v1/callbacks/shell-command-fork/ended?execution_identifier=42",
-            "cancelled": "http://workflow/v1/callbacks/shell-command-fork/cancelled?execution_identifier=42"
-            "error": "http://workflow/v1/callbacks/shell-command-fork/error?execution_identifier=42",
+            "begun": "http://workflow/v1/callbacks/shell-command/begun?execution_identifier=42",
+            "ended": "http://workflow/v1/callbacks/shell-command/ended?execution_identifier=42",
+            "cancelled": "http://workflow/v1/callbacks/shell-command/cancelled?execution_identifier=42"
+            "error": "http://workflow/v1/callbacks/shell-command/error?execution_identifier=42",
         }
     }
 
