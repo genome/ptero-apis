@@ -152,7 +152,7 @@ Sample Begun callback:
 
     {
         "callbackType": "begun",
-        "job_id": 1234,
+        "jobId": 1234,
         "host": "some-execution-host",
         "begin": "2014-02-20 11:23:47-6"
     }
@@ -165,11 +165,11 @@ Sample Ended callback:
 
     {
         "callbackType": "ended",
-        "job_id": 1234,
+        "jobId": 1234,
         "host": "some-execution-host",
         "begin": "2014-02-20 11:23:47-6",
         "end": "2014-02-20 11:23:57-6",
         "stdout": "some generated text",
         "stderr": "",
-        "exit_code": 0
+        "exitCode": 0
     }
