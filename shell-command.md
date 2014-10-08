@@ -15,7 +15,7 @@ Schedule a new job.
 #### Request Body
 Required parameters:
 
-- `command_line`
+- `commandLine`
     - list of strings
 - `environment`
     - hash of string -> string
@@ -31,14 +31,14 @@ Optional parameters:
     - passed verbatim to the command via standard input
 - `webhooks`
     - hash string -> URL
-- `working_directory`
+- `workingDirectory`
     - path
     - defaults to user's home directory
 
 Sample:
 
     {
-        "command_line": [
+        "commandLine": [
             "joinx",
             "-h"
         ],
@@ -96,7 +96,7 @@ Return job details.
 
 - `fields`
     - what fields to include in the response
-        - `command_line`
+        - `commandLine`
         - `environment`
         - `status`
         - `user`
@@ -151,7 +151,7 @@ Sample Begun callback:
     Accepts: application/json
 
     {
-        "callback_type": "begun",
+        "callbackType": "begun",
         "job_id": 1234,
         "host": "some-execution-host",
         "begin": "2014-02-20 11:23:47-6"
@@ -164,7 +164,7 @@ Sample Ended callback:
     Accepts: application/json
 
     {
-        "callback_type": "ended",
+        "callbackType": "ended",
         "job_id": 1234,
         "host": "some-execution-host",
         "begin": "2014-02-20 11:23:47-6",
