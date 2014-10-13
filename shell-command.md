@@ -1,4 +1,4 @@
-# Fork Shell Command Service API
+# Shell Command Service API
 
 <!-- Should we support multiple worker queues, so that we could for example
 separate jobs needing network disk from those that do not?
@@ -15,7 +15,7 @@ Schedule a new job.
 #### Request Body
 Required parameters:
 
-- `command_line`
+- `commandLine`
     - list of strings
 - `environment`
     - hash of string -> string
@@ -31,14 +31,14 @@ Optional parameters:
     - passed verbatim to the command via standard input
 - `webhooks`
     - hash string -> URL
-- `working_directory`
+- `workingDirectory`
     - path
     - defaults to user's home directory
 
 Sample:
 
     {
-        "command_line": [
+        "commandLine": [
             "joinx",
             "-h"
         ],
@@ -48,10 +48,10 @@ Sample:
         "umask": "0002",
         "user": "mburnett",
         "webhooks": {
-            "begun": "http://workflow/v1/callbacks/shell-command-fork/begun?execution_identifier=42",
-            "ended": "http://workflow/v1/callbacks/shell-command-fork/ended?execution_identifier=42",
-            "cancelled": "http://workflow/v1/callbacks/shell-command-fork/cancelled?execution_identifier=42"
-            "error": "http://workflow/v1/callbacks/shell-command-fork/error?execution_identifier=42",
+            "begun": "http://workflow/v1/callbacks/shell-command/begun?execution_identifier=42",
+            "ended": "http://workflow/v1/callbacks/shell-command/ended?execution_identifier=42",
+            "cancelled": "http://workflow/v1/callbacks/shell-command/cancelled?execution_identifier=42"
+            "error": "http://workflow/v1/callbacks/shell-command/error?execution_identifier=42",
         }
     }
 
@@ -96,7 +96,7 @@ Return job details.
 
 - `fields`
     - what fields to include in the response
-        - `command_line`
+        - `commandLine`
         - `environment`
         - `status`
         - `user`
@@ -151,8 +151,8 @@ Sample Begun callback:
     Accepts: application/json
 
     {
-        "callback_type": "begun",
-        "job_id": 1234,
+        "callbackType": "begun",
+        "jobId": 1234,
         "host": "some-execution-host",
         "begin": "2014-02-20 11:23:47-6"
     }
@@ -164,12 +164,12 @@ Sample Ended callback:
     Accepts: application/json
 
     {
-        "callback_type": "ended",
-        "job_id": 1234,
+        "callbackType": "ended",
+        "jobId": 1234,
         "host": "some-execution-host",
         "begin": "2014-02-20 11:23:47-6",
         "end": "2014-02-20 11:23:57-6",
         "stdout": "some generated text",
         "stderr": "",
-        "exit_code": 0
+        "exitCode": 0
     }
