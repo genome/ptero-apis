@@ -1,4 +1,4 @@
-# LSF Shell Command Service API
+# LSF Service API
 
 ## Critical API
 
